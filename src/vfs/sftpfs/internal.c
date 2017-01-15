@@ -67,6 +67,30 @@ sftpfs_blksize (struct stat *s)
 }
 
 /* --------------------------------------------------------------------------------------------- */
+
+static gboolean
+sftpfs_waitsocket_or_error (sftpfs_super_data_t * super_data, int res, GError ** mcerror,
+                            void *to_free)
+{
+    if (res != LIBSSH2_ERROR_EAGAIN)
+    {
+        sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        g_free (to_free);
+        return FALSE;
+    }
+
+    sftpfs_waitsocket (super_data, mcerror);
+
+    if (mcerror != NULL && *mcerror != NULL)
+    {
+        g_free (to_free);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+/* --------------------------------------------------------------------------------------------- */
 /*** public functions ****************************************************************************/
 /* --------------------------------------------------------------------------------------------- */
 /**
@@ -229,14 +253,8 @@ sftpfs_lstat (const vfs_path_t * vpath, struct stat *buf, GError ** mcerror)
         if (sftpfs_is_sftp_error (super_data->sftp_session, res, LIBSSH2_FX_NO_SUCH_FILE))
             return -ENOENT;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -299,14 +317,8 @@ sftpfs_stat (const vfs_path_t * vpath, struct stat *buf, GError ** mcerror)
         if (sftpfs_is_sftp_error (super_data->sftp_session, res, LIBSSH2_FX_NO_SUCH_FILE))
             return -ENOENT;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -363,14 +375,8 @@ sftpfs_readlink (const vfs_path_t * vpath, char *buf, size_t size, GError ** mce
         if (res >= 0)
             break;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -430,19 +436,8 @@ sftpfs_symlink (const vfs_path_t * vpath1, const vfs_path_t * vpath2, GError ** 
         if (res >= 0)
             break;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
-            g_free (tmp_path);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, tmp_path))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        if (mcerror != NULL && *mcerror != NULL)
-        {
-            g_free (tmp_path);
-            return -1;
-        }
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
     g_free (tmp_path);
@@ -505,14 +500,8 @@ sftpfs_chmod (const vfs_path_t * vpath, mode_t mode, GError ** mcerror)
             break;
         }
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -540,14 +529,8 @@ sftpfs_chmod (const vfs_path_t * vpath, mode_t mode, GError ** mcerror)
             break;
         }
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -596,14 +579,8 @@ sftpfs_unlink (const vfs_path_t * vpath, GError ** mcerror)
         if (res >= 0)
             break;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, NULL))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        mc_return_val_if_error (mcerror, -1);
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
 
@@ -662,19 +639,8 @@ sftpfs_rename (const vfs_path_t * vpath1, const vfs_path_t * vpath2, GError ** m
         if (res >= 0)
             break;
 
-        if (res != LIBSSH2_ERROR_EAGAIN)
-        {
-            sftpfs_ssherror_to_gliberror (super_data, res, mcerror);
-            g_free (tmp_path);
+        if (!sftpfs_waitsocket_or_error (super_data, res, mcerror, tmp_path))
             return -1;
-        }
-
-        sftpfs_waitsocket (super_data, mcerror);
-        if (mcerror != NULL && *mcerror != NULL)
-        {
-            g_free (tmp_path);
-            return -1;
-        }
     }
     while (res == LIBSSH2_ERROR_EAGAIN);
     g_free (tmp_path);

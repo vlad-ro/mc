@@ -287,12 +287,13 @@ sftpfs_lstat (const vfs_path_t * vpath, struct stat *buf, GError ** mcerror)
     int res;
 
     res = sftpfs_stat_init (&super_data, &path_element, vpath, mcerror, LIBSSH2_SFTP_LSTAT, &attrs);
-    if (res == -1 || res == -EACCES || res == -ENOENT)
-        return res;
+    if (res >= 0)
+    {
+        sftpfs_attr_to_stat (&attrs, buf);
+        res = 0;
+    }
 
-    sftpfs_attr_to_stat (&attrs, buf);
-
-    return 0;
+    return res;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -314,14 +315,14 @@ sftpfs_stat (const vfs_path_t * vpath, struct stat *buf, GError ** mcerror)
     int res;
 
     res = sftpfs_stat_init (&super_data, &path_element, vpath, mcerror, LIBSSH2_SFTP_STAT, &attrs);
-    if (res == -1 || res == -EACCES || res == -ENOENT)
-        return res;
+    if (res >= 0)
+    {
+        buf->st_nlink = 1;
+        sftpfs_attr_to_stat (&attrs, buf);
+        res = 0;
+    }
 
-    buf->st_nlink = 1;
-
-    sftpfs_attr_to_stat (&attrs, buf);
-
-    return 0;
+    return res;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -435,7 +436,7 @@ sftpfs_chmod (const vfs_path_t * vpath, mode_t mode, GError ** mcerror)
     int res;
 
     res = sftpfs_stat_init (&super_data, &path_element, vpath, mcerror, LIBSSH2_SFTP_LSTAT, &attrs);
-    if (res == -1 || res == -EACCES || res == -ENOENT)
+    if (res < 0)
         return res;
 
     attrs.permissions = mode;

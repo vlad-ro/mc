@@ -610,6 +610,114 @@ do_compute_dir_size (const vfs_path_t * dirname_vpath, dirsize_status_msg_t * ds
 }
 
 /* --------------------------------------------------------------------------------------------- */
+/**
+ * panel_compute_totals:
+ *
+ * compute the number of files and the number of bytes
+ * used up by the whole selection, recursing directories
+ * as required.  In addition, it checks to see if it will
+ * overwrite any files by doing the copy.
+ */
+
+static FileProgressStatus
+panel_compute_totals (const WPanel * panel, dirsize_status_msg_t * sm, size_t * ret_count,
+                      uintmax_t * ret_total, gboolean compute_symlinks)
+{
+    int i;
+    size_t dir_count = 0;
+
+    for (i = 0; i < panel->dir.len; i++)
+    {
+        struct stat *s;
+
+        if (!panel->dir.list[i].f.marked)
+            continue;
+
+        s = &panel->dir.list[i].st;
+
+        if (S_ISDIR (s->st_mode))
+        {
+            vfs_path_t *p;
+            FileProgressStatus status;
+
+            p = vfs_path_append_new (panel->cwd_vpath, panel->dir.list[i].fname, (char *) NULL);
+            status = compute_dir_size (p, sm, &dir_count, ret_count, ret_total, compute_symlinks);
+            vfs_path_free (p);
+
+            if (status != FILE_CONT)
+                return status;
+        }
+        else
+        {
+            (*ret_count)++;
+            *ret_total += (uintmax_t) s->st_size;
+        }
+    }
+
+    return FILE_CONT;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/** Initialize variables for progress bars */
+static FileProgressStatus
+panel_operate_init_totals (const WPanel * panel, const char *source, file_op_context_t * ctx,
+                           filegui_dialog_type_t dialog_type)
+{
+    FileProgressStatus status;
+
+#ifdef ENABLE_BACKGROUND
+    if (mc_global.we_are_background)
+        return FILE_CONT;
+#endif
+
+    if (verbose && file_op_compute_totals)
+    {
+        dirsize_status_msg_t dsm;
+
+        memset (&dsm, 0, sizeof (dsm));
+        dsm.allow_skip = TRUE;
+        status_msg_init (STATUS_MSG (&dsm), _("Directory scanning"), 0, dirsize_status_init_cb,
+                         dirsize_status_update_cb, dirsize_status_deinit_cb);
+
+        ctx->progress_count = 0;
+        ctx->progress_bytes = 0;
+
+        if (source == NULL)
+            status = panel_compute_totals (panel, &dsm, &ctx->progress_count, &ctx->progress_bytes,
+                                           ctx->follow_links);
+        else
+        {
+            vfs_path_t *p;
+            size_t dir_count = 0;
+
+            p = vfs_path_from_str (source);
+            status = compute_dir_size (p, &dsm, &dir_count, &ctx->progress_count,
+                                       &ctx->progress_bytes, ctx->follow_links);
+            vfs_path_free (p);
+        }
+
+        status_msg_deinit (STATUS_MSG (&dsm));
+
+        ctx->progress_totals_computed = (status == FILE_CONT);
+
+        if (status == FILE_SKIP)
+            status = FILE_CONT;
+    }
+    else
+    {
+        status = FILE_CONT;
+        ctx->progress_count = panel->marked;
+        ctx->progress_bytes = panel->total;
+        ctx->progress_totals_computed = FALSE;
+    }
+
+    file_op_context_create_ui (ctx, TRUE, dialog_type);
+
+    return status;
+}
+
+/* --------------------------------------------------------------------------------------------- */
 
 static FileProgressStatus
 progress_update_one (file_op_total_context_t * tctx, file_op_context_t * ctx, off_t add)
@@ -977,8 +1085,8 @@ try_remove_file (file_op_context_t * ctx, const vfs_path_t * vpath, FileProgress
 
 /* {{{ Move routines */
 static FileProgressStatus
-move_file_file (file_op_total_context_t * tctx, file_op_context_t * ctx, const char *s,
-                const char *d)
+move_file_file (const WPanel * panel, file_op_total_context_t * tctx, file_op_context_t * ctx,
+                const char *s, const char *d)
 {
     struct stat src_stats, dst_stats;
     FileProgressStatus return_status = FILE_CONT;
@@ -992,7 +1100,7 @@ move_file_file (file_op_total_context_t * tctx, file_op_context_t * ctx, const c
     file_progress_show_source (ctx, src_vpath);
     file_progress_show_target (ctx, dst_vpath);
 
-    if (check_progress_buttons (ctx) == FILE_ABORT)
+    if (panel == NULL && check_progress_buttons (ctx) == FILE_ABORT)
     {
         return_status = FILE_ABORT;
         goto ret;
@@ -1050,7 +1158,8 @@ move_file_file (file_op_total_context_t * tctx, file_op_context_t * ctx, const c
 
         if (mc_rename (src_vpath, dst_vpath) == 0)
         {
-            return_status = progress_update_one (tctx, ctx, src_stats.st_size);
+            if (panel == NULL)
+                return_status = progress_update_one (tctx, ctx, src_stats.st_size);
             goto ret;
         }
     }
@@ -1079,7 +1188,14 @@ move_file_file (file_op_total_context_t * tctx, file_op_context_t * ctx, const c
     }
 #endif
 
-    /* Failed because filesystem boundary -> copy the file instead */
+    /* Failed rename -> copy the file instead */
+    if (panel != NULL)
+    {
+        return_status = panel_operate_init_totals (panel, s, ctx, FILEGUI_DIALOG_ONE_ITEM);
+        if (return_status != FILE_CONT)
+            goto ret;
+    }
+
     old_ask_overwrite = tctx->ask_overwrite;
     tctx->ask_overwrite = FALSE;
     return_status = copy_file_file (tctx, ctx, s, d);
@@ -1089,16 +1205,20 @@ move_file_file (file_op_total_context_t * tctx, file_op_context_t * ctx, const c
 
     copy_done = TRUE;
 
-    file_progress_show_source (ctx, NULL);
-    file_progress_show (ctx, 0, 0, "", FALSE);
+    if (panel == NULL)
+    {
+        file_progress_show_source (ctx, NULL);
+        file_progress_show (ctx, 0, 0, "", FALSE);
 
-    return_status = check_progress_buttons (ctx);
-    if (return_status != FILE_CONT)
-        goto ret;
+        return_status = check_progress_buttons (ctx);
+        if (return_status != FILE_CONT)
+            goto ret;
+    }
+
     mc_refresh ();
 
   retry_src_remove:
-    if (!try_remove_file (ctx, src_vpath, &return_status))
+    if (!try_remove_file (ctx, src_vpath, &return_status) && panel == NULL)
         goto ret;
 
     if (!copy_done)
@@ -1307,6 +1427,140 @@ erase_dir_after_copy (file_op_total_context_t * tctx, file_op_context_t * ctx,
 
 /* --------------------------------------------------------------------------------------------- */
 
+static FileProgressStatus
+do_move_dir_dir (const WPanel * panel, file_op_total_context_t * tctx, file_op_context_t * ctx,
+                 const char *s, const char *d)
+{
+    struct stat sbuf, dbuf;
+    FileProgressStatus return_status = FILE_CONT;
+    gboolean move_over = FALSE;
+    gboolean dstat_ok;
+    vfs_path_t *src_vpath, *dst_vpath;
+
+    src_vpath = vfs_path_from_str (s);
+    dst_vpath = vfs_path_from_str (d);
+
+    file_progress_show_source (ctx, src_vpath);
+    file_progress_show_target (ctx, dst_vpath);
+
+    if (panel != NULL && check_progress_buttons (ctx) == FILE_ABORT)
+    {
+        return_status = FILE_ABORT;
+        goto ret_fast;
+    }
+
+    mc_refresh ();
+
+    mc_stat (src_vpath, &sbuf);
+
+    dstat_ok = (mc_stat (dst_vpath, &dbuf) == 0);
+
+    if (dstat_ok && check_same_file (s, &sbuf, d, &dbuf, &return_status))
+        goto ret_fast;
+
+    if (!dstat_ok)
+        ;                       /* destination doesn't exist */
+    else if (!ctx->dive_into_subdirs)
+        move_over = TRUE;
+    else
+    {
+        vfs_path_t *tmp;
+
+        tmp = dst_vpath;
+        dst_vpath = vfs_path_append_new (dst_vpath, x_basename (s), (char *) NULL);
+        vfs_path_free (tmp);
+    }
+
+    d = vfs_path_as_str (dst_vpath);
+
+    /* Check if the user inputted an existing dir */
+  retry_dst_stat:
+    if (mc_stat (dst_vpath, &dbuf) == 0)
+    {
+        if (move_over)
+        {
+            return_status = copy_dir_dir (tctx, ctx, s, d, FALSE, TRUE, TRUE, NULL);
+
+            if (return_status != FILE_CONT)
+                goto ret;
+            goto oktoret;
+        }
+        else if (ctx->skip_all)
+            return_status = FILE_SKIPALL;
+        else
+        {
+            if (S_ISDIR (dbuf.st_mode))
+                return_status = file_error (_("Cannot overwrite directory \"%s\"\n%s"), d);
+            else
+                return_status = file_error (_("Cannot overwrite file \"%s\"\n%s"), d);
+            if (return_status == FILE_SKIPALL)
+                ctx->skip_all = TRUE;
+            if (return_status == FILE_RETRY)
+                goto retry_dst_stat;
+        }
+
+        goto ret_fast;
+    }
+
+  retry_rename:
+    if (mc_rename (src_vpath, dst_vpath) == 0)
+    {
+        return_status = FILE_CONT;
+        goto ret;
+    }
+
+    if (errno != EXDEV)
+    {
+        if (!ctx->skip_all)
+        {
+            return_status = files_error (_("Cannot move directory \"%s\" to \"%s\"\n%s"), s, d);
+            if (return_status == FILE_SKIPALL)
+                ctx->skip_all = TRUE;
+            if (return_status == FILE_RETRY)
+                goto retry_rename;
+        }
+        goto ret;
+    }
+
+    /* Failed because of filesystem boundary -> copy dir instead */
+    if (panel != NULL)
+    {
+        return_status = panel_operate_init_totals (panel, s, ctx, FILEGUI_DIALOG_ONE_ITEM);
+        if (return_status != FILE_CONT)
+            goto ret;
+    }
+
+    return_status = copy_dir_dir (tctx, ctx, s, d, FALSE, FALSE, TRUE, NULL);
+
+    if (return_status != FILE_CONT)
+        goto ret;
+
+  oktoret:
+    if (panel == NULL)
+    {
+        file_progress_show_source (ctx, NULL);
+        file_progress_show_target (ctx, NULL);
+        file_progress_show (ctx, 0, 0, "", FALSE);
+
+        return_status = check_progress_buttons (ctx);
+        if (return_status != FILE_CONT)
+            goto ret;
+    }
+
+    mc_refresh ();
+
+    erase_dir_after_copy (tctx, ctx, src_vpath, &return_status);
+
+  ret:
+    erase_list = free_linklist (erase_list);
+  ret_fast:
+    vfs_path_free (src_vpath);
+    vfs_path_free (dst_vpath);
+    return return_status;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
 /* {{{ Panel operate routines */
 
 /**
@@ -1386,114 +1640,6 @@ check_single_entry (const WPanel * panel, gboolean force_single, struct stat *sr
     }
 
     return ok ? source : NULL;
-}
-
-/* --------------------------------------------------------------------------------------------- */
-/**
- * panel_compute_totals:
- *
- * compute the number of files and the number of bytes
- * used up by the whole selection, recursing directories
- * as required.  In addition, it checks to see if it will
- * overwrite any files by doing the copy.
- */
-
-static FileProgressStatus
-panel_compute_totals (const WPanel * panel, dirsize_status_msg_t * sm, size_t * ret_count,
-                      uintmax_t * ret_total, gboolean compute_symlinks)
-{
-    int i;
-    size_t dir_count = 0;
-
-    for (i = 0; i < panel->dir.len; i++)
-    {
-        struct stat *s;
-
-        if (!panel->dir.list[i].f.marked)
-            continue;
-
-        s = &panel->dir.list[i].st;
-
-        if (S_ISDIR (s->st_mode))
-        {
-            vfs_path_t *p;
-            FileProgressStatus status;
-
-            p = vfs_path_append_new (panel->cwd_vpath, panel->dir.list[i].fname, (char *) NULL);
-            status = compute_dir_size (p, sm, &dir_count, ret_count, ret_total, compute_symlinks);
-            vfs_path_free (p);
-
-            if (status != FILE_CONT)
-                return status;
-        }
-        else
-        {
-            (*ret_count)++;
-            *ret_total += (uintmax_t) s->st_size;
-        }
-    }
-
-    return FILE_CONT;
-}
-
-/* --------------------------------------------------------------------------------------------- */
-
-/** Initialize variables for progress bars */
-static FileProgressStatus
-panel_operate_init_totals (const WPanel * panel, const char *source, file_op_context_t * ctx,
-                           filegui_dialog_type_t dialog_type)
-{
-    FileProgressStatus status;
-
-#ifdef ENABLE_BACKGROUND
-    if (mc_global.we_are_background)
-        return FILE_CONT;
-#endif
-
-    if (verbose && file_op_compute_totals)
-    {
-        dirsize_status_msg_t dsm;
-
-        memset (&dsm, 0, sizeof (dsm));
-        dsm.allow_skip = TRUE;
-        status_msg_init (STATUS_MSG (&dsm), _("Directory scanning"), 0, dirsize_status_init_cb,
-                         dirsize_status_update_cb, dirsize_status_deinit_cb);
-
-        ctx->progress_count = 0;
-        ctx->progress_bytes = 0;
-
-        if (source == NULL)
-            status = panel_compute_totals (panel, &dsm, &ctx->progress_count, &ctx->progress_bytes,
-                                           ctx->follow_links);
-        else
-        {
-            vfs_path_t *p;
-            size_t dir_count = 0;
-
-            p = vfs_path_from_str (source);
-            status = compute_dir_size (p, &dsm, &dir_count, &ctx->progress_count,
-                                       &ctx->progress_bytes, ctx->follow_links);
-            vfs_path_free (p);
-        }
-
-        status_msg_deinit (STATUS_MSG (&dsm));
-
-        ctx->progress_totals_computed = (status == FILE_CONT);
-
-        if (status == FILE_SKIP)
-            status = FILE_CONT;
-    }
-    else
-    {
-        status = FILE_CONT;
-        ctx->progress_count = panel->marked;
-        ctx->progress_bytes = panel->total;
-        ctx->progress_totals_computed = FALSE;
-    }
-
-    file_op_context_create_ui (ctx, TRUE, dialog_type);
-
-    return status;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1740,30 +1886,11 @@ operate_single_file (const WPanel * panel, FileOperation operation, file_op_tota
                 break;
 
             case OP_MOVE:
-                {
-                    vfs_path_t *dest_vpath;
-
-                    dest_vpath = vfs_path_from_str (dest);
-
-                    /* try rename */
-                    if (mc_rename (src_vpath, dest_vpath) == 0)
-                        value = FILE_CONT;
-                    else
-                    {
-                        /* copy + delete */
-                        value = panel_operate_init_totals (panel, src, ctx, dialog_type);
-                        if (value == FILE_CONT)
-                        {
-                            if (is_file)
-                                value = move_file_file (tctx, ctx, src, dest);
-                            else
-                                value = move_dir_dir (tctx, ctx, src, dest);
-                        }
-                    }
-
-                    vfs_path_free (dest_vpath);
-                    break;
-                }
+                if (is_file)
+                    value = move_file_file (panel, tctx, ctx, src, dest);
+                else
+                    value = do_move_dir_dir (panel, tctx, ctx, src, dest);
+                break;
 
             default:
                 /* Unknown file operation */
@@ -1838,9 +1965,9 @@ operate_one_file (const WPanel * panel, FileOperation operation, file_op_total_c
 
             case OP_MOVE:
                 if (is_file)
-                    value = move_file_file (tctx, ctx, src, dest);
+                    value = move_file_file (NULL, tctx, ctx, src, dest);
                 else
-                    value = move_dir_dir (tctx, ctx, src, dest);
+                    value = do_move_dir_dir (NULL, tctx, ctx, src, dest);
                 break;
 
             default:
@@ -2695,120 +2822,7 @@ copy_dir_dir (file_op_total_context_t * tctx, file_op_context_t * ctx, const cha
 FileProgressStatus
 move_dir_dir (file_op_total_context_t * tctx, file_op_context_t * ctx, const char *s, const char *d)
 {
-    struct stat sbuf, dbuf;
-    FileProgressStatus return_status = FILE_CONT;
-    gboolean move_over = FALSE;
-    gboolean dstat_ok;
-    vfs_path_t *src_vpath, *dst_vpath;
-
-    src_vpath = vfs_path_from_str (s);
-    dst_vpath = vfs_path_from_str (d);
-
-    file_progress_show_source (ctx, src_vpath);
-    file_progress_show_target (ctx, dst_vpath);
-
-    if (check_progress_buttons (ctx) == FILE_ABORT)
-    {
-        return_status = FILE_ABORT;
-        goto ret_fast;
-    }
-
-    mc_refresh ();
-
-    mc_stat (src_vpath, &sbuf);
-
-    dstat_ok = (mc_stat (dst_vpath, &dbuf) == 0);
-
-    if (dstat_ok && check_same_file (s, &sbuf, d, &dbuf, &return_status))
-        goto ret_fast;
-
-    if (!dstat_ok)
-        ;                       /* destination doesn't exist */
-    else if (!ctx->dive_into_subdirs)
-        move_over = TRUE;
-    else
-    {
-        vfs_path_t *tmp;
-
-        tmp = dst_vpath;
-        dst_vpath = vfs_path_append_new (dst_vpath, x_basename (s), (char *) NULL);
-        vfs_path_free (tmp);
-    }
-
-    d = vfs_path_as_str (dst_vpath);
-
-    /* Check if the user inputted an existing dir */
-  retry_dst_stat:
-    if (mc_stat (dst_vpath, &dbuf) == 0)
-    {
-        if (move_over)
-        {
-            return_status = copy_dir_dir (tctx, ctx, s, d, FALSE, TRUE, TRUE, NULL);
-
-            if (return_status != FILE_CONT)
-                goto ret;
-            goto oktoret;
-        }
-        else if (ctx->skip_all)
-            return_status = FILE_SKIPALL;
-        else
-        {
-            if (S_ISDIR (dbuf.st_mode))
-                return_status = file_error (_("Cannot overwrite directory \"%s\"\n%s"), d);
-            else
-                return_status = file_error (_("Cannot overwrite file \"%s\"\n%s"), d);
-            if (return_status == FILE_SKIPALL)
-                ctx->skip_all = TRUE;
-            if (return_status == FILE_RETRY)
-                goto retry_dst_stat;
-        }
-
-        goto ret_fast;
-    }
-
-  retry_rename:
-    if (mc_rename (src_vpath, dst_vpath) == 0)
-    {
-        return_status = FILE_CONT;
-        goto ret;
-    }
-
-    if (errno != EXDEV)
-    {
-        if (!ctx->skip_all)
-        {
-            return_status = files_error (_("Cannot move directory \"%s\" to \"%s\"\n%s"), s, d);
-            if (return_status == FILE_SKIPALL)
-                ctx->skip_all = TRUE;
-            if (return_status == FILE_RETRY)
-                goto retry_rename;
-        }
-        goto ret;
-    }
-    /* Failed because of filesystem boundary -> copy dir instead */
-    return_status = copy_dir_dir (tctx, ctx, s, d, FALSE, FALSE, TRUE, NULL);
-
-    if (return_status != FILE_CONT)
-        goto ret;
-  oktoret:
-    file_progress_show_source (ctx, NULL);
-    file_progress_show_target (ctx, NULL);
-    file_progress_show (ctx, 0, 0, "", FALSE);
-
-    return_status = check_progress_buttons (ctx);
-    if (return_status != FILE_CONT)
-        goto ret;
-
-    mc_refresh ();
-
-    erase_dir_after_copy (tctx, ctx, src_vpath, &return_status);
-
-  ret:
-    erase_list = free_linklist (erase_list);
-  ret_fast:
-    vfs_path_free (src_vpath);
-    vfs_path_free (dst_vpath);
-    return return_status;
+    return do_move_dir_dir (NULL, tctx, ctx, s, d);
 }
 
 /* }}} */

@@ -70,6 +70,8 @@ static mode_t and_mask, or_mask, c_stat;
 static WLabel *statl;
 static WGroupbox *file_gb;
 
+static gboolean skip_all;
+
 static struct
 {
     mode_t mode;
@@ -392,20 +394,66 @@ next_file (void)
 
 /* --------------------------------------------------------------------------------------------- */
 
-static void
+static gboolean
+try_chmod (const vfs_path_t * p, mode_t m)
+{
+    while (mc_chmod (p, m) == -1 && !skip_all)
+    {
+        int my_errno = errno;
+        int result;
+        char *msg;
+
+        msg =
+            g_strdup_printf (_("Cannot chmod \"%s\"\n%s"), x_basename (vfs_path_as_str (p)),
+                             unix_error_string (my_errno));
+        result =
+            query_dialog (MSG_ERROR, msg, D_ERROR, 4, _("&Ignore"), _("Ignore &all"), _("&Retry"),
+                          _("&Cancel"));
+        g_free (msg);
+
+        switch (result)
+        {
+        case 0:
+            /* try next file */
+            return TRUE;
+
+        case 1:
+            skip_all = TRUE;
+            /* try next file */
+            return TRUE;
+
+        case 2:
+            /* retry this file */
+            break;
+
+        case 3:
+        default:
+            /* stop remain files processing */
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+static gboolean
 do_chmod (struct stat *sf)
 {
+    gboolean ret;
     vfs_path_t *vpath;
+
     sf->st_mode &= and_mask;
     sf->st_mode |= or_mask;
 
     vpath = vfs_path_from_str (current_panel->dir.list[c_file].fname);
-    if (mc_chmod (vpath, sf->st_mode) == -1)
-        message (D_ERROR, MSG_ERROR, _("Cannot chmod \"%s\"\n%s"),
-                 current_panel->dir.list[c_file].fname, unix_error_string (errno));
-
+    ret = try_chmod (vpath, sf->st_mode);
     vfs_path_free (vpath);
+
     do_file_mark (current_panel, c_file, 0);
+
+    return ret;
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -416,7 +464,8 @@ apply_mask (struct stat *sf)
     need_update = TRUE;
     end_chmod = TRUE;
 
-    do_chmod (sf);
+    if (!do_chmod (sf))
+        return;
 
     do
     {
@@ -428,12 +477,20 @@ apply_mask (struct stat *sf)
         vpath = vfs_path_from_str (fname);
         ok = (mc_stat (vpath, sf) == 0);
         vfs_path_free (vpath);
+
         if (!ok)
-            return;
+        {
+            /* if current file was deleted outside mc -- try next file */
+            /* decrease current_panel->marked */
+            do_file_mark (current_panel, c_file, 0);
+        }
+        else
+        {
+            c_stat = sf->st_mode;
 
-        c_stat = sf->st_mode;
-
-        do_chmod (sf);
+            if (!do_chmod (sf))
+                return;
+        }
     }
     while (current_panel->marked != 0);
 }
@@ -446,6 +503,8 @@ void
 chmod_cmd (void)
 {
     chmod_i18n ();
+
+    skip_all = FALSE;
 
     do
     {                           /* do while any files remaining */
@@ -485,9 +544,23 @@ chmod_cmd (void)
         switch (result)
         {
         case B_ENTER:
-            if (mode_change && mc_chmod (vpath, c_stat) == -1)
-                message (D_ERROR, MSG_ERROR, _("Cannot chmod \"%s\"\n%s"),
-                         fname, unix_error_string (errno));
+            if (mode_change)
+            {
+                if (current_panel->marked <= 1)
+                {
+                    /* single or last file */
+                    if (mc_chmod (vpath, c_stat) == -1 && !skip_all)
+                        message (D_ERROR, MSG_ERROR, _("Cannot chmod \"%s\"\n%s"), fname,
+                                 unix_error_string (errno));
+                }
+                else if (!try_chmod (vpath, c_stat))
+                {
+                    /* stop multiple files processing */
+                    result = B_CANCEL;
+                    end_chmod = TRUE;
+                }
+            }
+
             need_update = TRUE;
             break;
 

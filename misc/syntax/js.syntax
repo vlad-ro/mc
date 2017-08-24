@@ -17,95 +17,95 @@
 #    * Initial public release.
 #
 
-context default
+context default yellow
 
     #=========================
     # Keywords
-    keyword whole arguments yellow
-    keyword whole break yellow
-    keyword whole caller yellow
-    keyword whole case yellow
-    keyword whole catch yellow
-    keyword whole class yellow
-    keyword whole const yellow
-    keyword whole constructor yellow
-    keyword whole continue yellow
-    keyword whole else yellow
-    keyword whole extends yellow
-    keyword whole export yellow
-    keyword whole default yellow
-    keyword whole delete yellow
-    keyword whole for yellow
-    keyword whole function yellow
-    keyword whole if yellow
-    keyword whole import yellow
-    keyword whole in yellow
-    keyword whole instanceof yellow
-    keyword whole let yellow
-    keyword whole new yellow
-    keyword whole of yellow
-    keyword whole prototype yellow
-    keyword whole return yellow
-    keyword whole switch yellow
-    keyword whole this yellow
-    keyword whole throw yellow
-    keyword whole try yellow
-    keyword whole typeof yellow
-    keyword whole var yellow
-    keyword whole while yellow
-    keyword whole with yellow
-    keyword whole yield yellow
+    keyword whole arguments white
+    keyword whole break white
+    keyword whole caller white
+    keyword whole case white
+    keyword whole catch white
+    keyword whole class white
+    keyword whole const white
+    keyword whole constructor white
+    keyword whole continue white
+    keyword whole else white
+    keyword whole extends white
+    keyword whole export white
+    keyword whole default white
+    keyword whole delete white
+    keyword whole for white
+    keyword whole function white
+    keyword whole if white
+    keyword whole import white
+    keyword whole in white
+    keyword whole instanceof white
+    keyword whole let white
+    keyword whole new white
+    keyword whole of white
+    keyword whole prototype white
+    keyword whole return white
+    keyword whole switch white
+    keyword whole this white
+    keyword whole throw white
+    keyword whole try white
+    keyword whole typeof white
+    keyword whole var white
+    keyword whole while white
+    keyword whole with white
+    keyword whole yield white
 
     #=========================
     # Objects
-    keyword whole ActiveXObject yellow
-    keyword whole Array yellow
-    keyword whole Boolean yellow
-    keyword whole Date yellow
-    keyword whole Dictionary yellow
-    keyword whole Enumerator yellow
-    keyword whole FileSystemObject yellow
-    keyword whole Function yellow
-    keyword whole Global yellow
-    keyword whole Image yellow
-    keyword whole Math yellow
-    keyword whole Map yellow
-    keyword whole Number yellow
-    keyword whole Object yellow
-    keyword whole Promise yellow
-    keyword whole Proxy yellow
-    keyword whole Reflect yellow
-    keyword whole Set yellow
-    keyword whole Symbol yellow
-    keyword whole TextStream yellow
-    keyword whole RegExp yellow
-    keyword whole VBArray yellow
-    keyword whole WeakMap yellow
-    keyword whole WeakSet yellow
+    keyword whole ActiveXObject white
+    keyword whole Array white
+    keyword whole Boolean white
+    keyword whole Date white
+    keyword whole Dictionary white
+    keyword whole Enumerator white
+    keyword whole FileSystemObject white
+    keyword whole Function white
+    keyword whole Global white
+    keyword whole Image white
+    keyword whole Math white
+    keyword whole Map white
+    keyword whole Number white
+    keyword whole Object white
+    keyword whole Promise white
+    keyword whole Proxy white
+    keyword whole Reflect white
+    keyword whole Set white
+    keyword whole Symbol white
+    keyword whole TextStream white
+    keyword whole RegExp white
+    keyword whole VBArray white
+    keyword whole WeakMap white
+    keyword whole WeakSet white
 
     #=========================
     # Most common functions
-    keyword whole alert yellow
-    keyword whole escape yellow
-    keyword whole eval yellow
-    keyword whole indexOf yellow
-    keyword whole isNaN yellow
-    keyword whole toString yellow
-    keyword whole unescape yellow
-    keyword whole valueOf yellow
+    keyword whole alert white
+    keyword whole escape white
+    keyword whole eval white
+    keyword whole indexOf white
+    keyword whole isNaN white
+    keyword whole toString white
+    keyword whole unescape white
+    keyword whole valueOf white
 
     #=========================
     # Constants
     keyword whole false brightgreen
     keyword whole null brightgreen
     keyword whole true brightgreen
-    keyword whole undefined yellow
+    keyword whole undefined white
 
     #=========================
     # Comments
-    keyword /\* brown
-    keyword \*/ brown
-    keyword // brown
+    keyword /\* lightgray
+    keyword \*/ lightgray
+    keyword // lightgray
 
     #=========================
     # Numbers
@@ -122,40 +122,40 @@ context default
 
     #=========================
     # Special symbols
-    keyword => brightcyan
-    keyword \. yellow
-    keyword \* yellow
-    keyword \+ yellow
-    keyword - yellow
-    keyword / yellow
-    keyword % yellow
-    keyword = yellow
-    keyword ! yellow
-    keyword & yellow
-    keyword | yellow
-    keyword ^ yellow
-    keyword ~ yellow
-    keyword > yellow
-    keyword < yellow
+    keyword => white
+    keyword \. white
+    keyword \* white
+    keyword \+ white
+    keyword - white
+    keyword / white
+    keyword % white
+    keyword = white
+    keyword ! white
+    keyword & white
+    keyword | white
+    keyword ^ white
+    keyword ~ white
+    keyword > white
+    keyword < white
 
     #=========================
     # Separators
-    keyword { brightcyan
-    keyword } brightcyan
-    keyword ( brightcyan
-    keyword ) brightcyan
-    keyword [ brightcyan
-    keyword ] brightcyan
-    keyword , brightcyan
-    keyword ? brightcyan
-    keyword : brightcyan
+    keyword { white
+    keyword } white
+    keyword ( white
+    keyword ) white
+    keyword [ white
+    keyword ] white
+    keyword , white
+    keyword ? white
+    keyword : white
     keyword ; brightmagenta
 
 
 #=============================
 # Comments
 
-context exclusive /\* \*/ brown
+context exclusive /\* \*/ lightgray
     spellcheck
     keyword whole BUG brightred
     keyword whole FixMe brightred
@@ -168,7 +168,7 @@ context exclusive /\* \*/ brown
     keyword ??\[?\] brightred
 
 
-context exclusive // \n brown
+context exclusive // \n lightgray
     spellcheck
     keyword whole BUG brightred
     keyword whole FixMe brightred
@@ -179,27 +179,46 @@ context exclusive // \n brown
     keyword whole TODO brightred
     keyword !!\[!\] brightred
     keyword ??\[?\] brightred
-
 
 #=============================
 # Strings
 
-context " " green
+context " " brightcyan
     spellcheck
     keyword \\\{\\'"abtnvfr\} brightgreen
     keyword \\\{0123\}\{01234567\}\{01234567\} brightgreen
 
     keyword ' brightgreen
 
-context ' ' green
+context ' ' brightcyan
     spellcheck
     keyword \\\{\\'"abtnvfr\} brightgreen
     keyword \\\{0123\}\{01234567\}\{01234567\} brightgreen
 
     keyword " brightgreen
 
-context ` ` green
+context ` ` brightcyan
     spellcheck
     keyword \\\{\\'"abtnvfr\} brightgreen
     keyword \\\{0123\}\{01234567\}\{01234567\} brightgreen
     keyword ${*} yellow
+
+#=============================
+# Regular expressions
+
+context exclusive / / brightcyan
+    keyword \\\\ brightgreen
+    keyword \\\? brightgreen
+    keyword \\\[/sSw\+\$\!\] brightgreen
+    keyword (?: white
+    keyword ( white
+    keyword ) white
+    keyword [ white
+    keyword ] white
+    keyword { white
+    keyword } white
+    keyword \. white
+    keyword \* white
+    keyword \+ white
+    keyword ? white
+    keyword | white

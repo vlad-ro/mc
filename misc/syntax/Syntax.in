@@ -22,7 +22,7 @@
 # yellow
 #
 
-file [Ss]yntax$ Syntax\sHighlighting\sdefinitions ^#\ssyntax\srules\sversion\s
+file [Ss]yntax(.in)?$ Syntax\sHighlighting\sdefinitions ^#\ssyntax\srules\sversion\s
 include syntax.syntax
 
 file filehighlight\\.ini$ File\sHighlighting\sdefinitions ^#\sfile\shighlight\srules\sversion\s
@@ -49,13 +49,13 @@ include python.syntax
 file ..\*\\.(pyx|pxd|pxi)$ Cython\sor\sPyrex\sProgram
 include cython.syntax
 
-file ..\*\\.(?:rb)$ Ruby\sProgram ^#!.\*([\s/]ruby|@RUBY@)
+file Vagrantfile|..\*\\.(?:rb)$ Ruby\sProgram ^#!.\*([\s/]ruby|@RUBY@)
 include ruby.syntax
 
 file ..\*\\.(man|[0-9n]|[0-9](x|ncurses|ssl|p|pm|menu|form|vga|t|td))$ NROFF\sSource
 include nroff.syntax
 
-file ..\*\\.(?i:html?)$ HTML\sFile
+file ..\*\\.(?i:html|ejs?)$ HTML\sFile
 include html.syntax
 
 file ..\*\\.((?i:xml|xsd|xslt?|dtd)|qpg|qpg\\.in)$ XML\sdocument (\\?xml\sversion|!DOCTYPE\s)
@@ -124,7 +124,7 @@ include properties.syntax
 file ..\*\\.(?i:cs)$ C\#\sProgram
 include cs.syntax
 
-file ..\*\\.(?i:js)$ JavaScript\sProgram ^#!.\*[\s/](node|nodejs)\\b
+file ..\*\\.(?i:js|json)$ JavaScript\sProgram ^#!.\*[\s/](node|nodejs)\\b
 include js.syntax
 
 file ..\*\\.(?i:ts)$ TypeScript\sProgram

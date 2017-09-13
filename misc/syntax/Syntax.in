@@ -22,7 +22,7 @@
 # yellow
 #
 
-file [Ss]yntax(.in)?$ Syntax\sHighlighting\sdefinitions ^#\ssyntax\srules\sversion\s
+file [Ss]yntax(\\.in)?$ Syntax\sHighlighting\sdefinitions ^#\ssyntax\srules\sversion\s
 include syntax.syntax
 
 file filehighlight\\.ini$ File\sHighlighting\sdefinitions ^#\sfile\shighlight\srules\sversion\s

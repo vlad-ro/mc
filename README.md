@@ -21,7 +21,7 @@ All custom files are in `contrib/_vlad-ro`
 `js.syntax`:
 
 - Bright color scheme
-- Regular expressions highlighting
+- Basic regular expressions highlighting
 
 `syntax.syntax`:
 

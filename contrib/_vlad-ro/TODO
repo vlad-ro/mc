@@ -1,0 +1,3 @@
+
+Makefile:
+- When generating html/js/css diff trim down only to the relevant sections

@@ -1,22 +1,37 @@
+include(common.m4)dnl
+divert(-1)
+ifelse(COLOR_SCHEME, <[bright]>, <[
+# Bright color scheme
+define(HTML_TAG, white)
+define(HTML_STRING, brightcyan)
+define(JS_SPECIAL_SYMBOL, white)
+]>, <[
+# Default color scheme
+define(<[CL_COMMENT]>, brown/22)
+define(HTML_TAG, brightcyan/17)
+define(HTML_STRING, cyan/5)
+define(JS_SPECIAL_SYMBOL, brightcyan)
+]>)
+divert<[]>dnl
 
 caseinsensitive
 
-context default
+context default<[]>CL_DEFAULT
     keyword whole &*; brightgreen/16
     spellcheck
 
-    keyword <SCRIPT brightcyan/17
-    keyword <STYLE brightcyan/17
-    keyword </\[a-zA-Z\]+> brightcyan/17
-    keyword </H1> brightcyan/17
-    keyword </H2> brightcyan/17
-    keyword </H3> brightcyan/17
-    keyword </H4> brightcyan/17
-    keyword </H5> brightcyan/17
-    keyword </H6> brightcyan/17
+    keyword <SCRIPT HTML_TAG
+    keyword <STYLE HTML_TAG
+    keyword </\[a-zA-Z\]+> HTML_TAG
+    keyword </H1> HTML_TAG
+    keyword </H2> HTML_TAG
+    keyword </H3> HTML_TAG
+    keyword </H4> HTML_TAG
+    keyword </H5> HTML_TAG
+    keyword </H6> HTML_TAG
 
 
-context <A >                    brightcyan/17
+context <A >                    HTML_TAG
     keyword = brightred/18
 
     keyword "http:*" magenta/22
@@ -49,8 +64,8 @@ context <A >                    brightcyan/17
     keyword "_parent" magenta/22
     keyword "_top" magenta/22
 
-    keyword "*" cyan/5
-    keyword '*' cyan/5
+    keyword "*" HTML_STRING
+    keyword '*' HTML_STRING
 
 #    keyword whole charset       yellow/24
 #    keyword whole type          yellow/24
@@ -78,7 +93,7 @@ context <A >                    brightcyan/17
     keyword whole onmouseup yellow/24
 
 
-context <ADDRESS >              brightcyan/17
+context <ADDRESS >              HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -99,9 +114,9 @@ context <ADDRESS >              brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <APPLET >               brightcyan/17
+context <APPLET >               HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -131,9 +146,9 @@ context <APPLET >               brightcyan/17
     keyword "file:*" magenta/22
     keyword "javascript:*" magenta/22
     keyword "*.class" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <AREA >                 brightcyan/17
+context <AREA >                 HTML_TAG
     keyword = brightred/18
 
 #    keyword whole accesskey     yellow/24
@@ -162,9 +177,9 @@ context <AREA >                 brightcyan/17
     keyword "news:*" magenta/22
     keyword "gopher:*" magenta/22
     keyword "telnet:*" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <B >                    brightcyan/17
+context <B >                    HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -185,9 +200,9 @@ context <B >                    brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <BASE >                 brightcyan/17
+context <BASE >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole href yellow/24
@@ -199,9 +214,9 @@ context <BASE >                 brightcyan/17
 
     keyword "http:*" magenta/22
     keyword "ftp:*" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <BASEFONT >             brightcyan/17
+context <BASEFONT >             HTML_TAG
     keyword = brightred/18
     keyword " magenta/22
 
@@ -209,9 +224,9 @@ context <BASEFONT >             brightcyan/17
     keyword whole size yellow/24
     keyword whole color yellow/24
     keyword whole face yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <BIG >                  brightcyan/17
+context <BIG >                  HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -232,10 +247,10 @@ context <BIG >                  brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <BLOCKQUOTE >           brightcyan/17
+context <BLOCKQUOTE >           HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -258,10 +273,10 @@ context <BLOCKQUOTE >           brightcyan/17
     keyword whole onmouseup yellow/24
 
     keyword whole cite yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <BODY >                 brightcyan/17
+context <BODY >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -292,24 +307,24 @@ context <BODY >                 brightcyan/17
     keyword "*.gif" brightred/19
     keyword "*.jpg" brightred/19
     keyword "*.png" brightred/19
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
     keyword whole bgcolor yellow/24
     keyword whole link yellow/24
     keyword whole text yellow/24
     keyword whole vlink yellow/24
 
-context <BR >                   brightcyan/17
+context <BR >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
     keyword whole id yellow/24
     keyword whole style yellow/24
     keyword whole title yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <BUTTON >               brightcyan/17
+context <BUTTON >               HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -330,9 +345,9 @@ context <BUTTON >               brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <CAPTION >              brightcyan/17
+context <CAPTION >              HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -357,9 +372,9 @@ context <CAPTION >              brightcyan/17
     keyword whole align yellow/24
     keyword whole valign yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <CENTER >               brightcyan/17
+context <CENTER >               HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -380,10 +395,10 @@ context <CENTER >               brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <CITE >                 brightcyan/17
+context <CITE >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -404,10 +419,10 @@ context <CITE >                 brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <CODE >                 brightcyan/17
+context <CODE >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -428,9 +443,9 @@ context <CODE >                 brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <DD >                   brightcyan/17
+context <DD >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -451,9 +466,9 @@ context <DD >                   brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <DIR >                  brightcyan/17
+context <DIR >                  HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -474,10 +489,10 @@ context <DIR >                  brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <DIV >                  brightcyan/17
+context <DIV >                  HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -504,11 +519,11 @@ context <DIV >                  brightcyan/17
     keyword whole "justify" magenta/22
     keyword whole "left" magenta/22
     keyword whole "right" magenta/22
-    keyword "*" cyan/5
-    keyword '*' cyan/5
+    keyword "*" HTML_STRING
+    keyword '*' HTML_STRING
 
 
-context <DL >                   brightcyan/17
+context <DL >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -529,9 +544,9 @@ context <DL >                   brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <DT >                   brightcyan/17
+context <DT >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -552,9 +567,9 @@ context <DT >                   brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <EM >                   brightcyan/17
+context <EM >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -575,10 +590,10 @@ context <EM >                   brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <DT >                   brightcyan/17
+context <DT >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -599,9 +614,9 @@ context <DT >                   brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <FONT >                 brightcyan/17
+context <FONT >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -626,9 +641,9 @@ context <FONT >                 brightcyan/17
     keyword whole size yellow/24
     keyword whole color yellow/24
     keyword whole face yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <FORM >                 brightcyan/17
+context <FORM >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -662,10 +677,10 @@ context <FORM >                 brightcyan/17
     keyword "_self" magenta/22
     keyword "_parent" magenta/22
     keyword "_top" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <FRAME >                brightcyan/17
+context <FRAME >                HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -683,10 +698,10 @@ context <FRAME >                brightcyan/17
     keyword "NO" magenta/22
     keyword "AUTO" magenta/22
     keyword whole src yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <FRAMESET >             brightcyan/17
+context <FRAMESET >             HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -702,7 +717,7 @@ context <FRAMESET >             brightcyan/17
     keyword whole rows yellow/24
 
 
-context <H1 >                   brightcyan/17
+context <H1 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -728,10 +743,10 @@ context <H1 >                   brightcyan/17
     keyword "CENTRE" magenta/22
     keyword "LEFT" magenta/22
     keyword "RIGHT" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <H2 >                   brightcyan/17
+context <H2 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -757,10 +772,10 @@ context <H2 >                   brightcyan/17
     keyword "CENTRE" magenta/22
     keyword "LEFT" magenta/22
     keyword "RIGHT" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <H3 >                   brightcyan/17
+context <H3 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -786,10 +801,10 @@ context <H3 >                   brightcyan/17
     keyword "CENTRE" magenta/22
     keyword "LEFT" magenta/22
     keyword "RIGHT" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <H4 >                   brightcyan/17
+context <H4 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -815,10 +830,10 @@ context <H4 >                   brightcyan/17
     keyword "CENTRE" magenta/22
     keyword "LEFT" magenta/22
     keyword "RIGHT" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <H5 >                   brightcyan/17
+context <H5 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -844,10 +859,10 @@ context <H5 >                   brightcyan/17
     keyword "centre" magenta/22
     keyword "left" magenta/22
     keyword "right" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <H6 >                   brightcyan/17
+context <H6 >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -873,18 +888,18 @@ context <H6 >                   brightcyan/17
     keyword "centre" magenta/22
     keyword "left" magenta/22
     keyword "right" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <HEAD >                 brightcyan/17
+context <HEAD >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole dir yellow/24
     keyword whole lang yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <HR >                   brightcyan/17
+context <HR >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -912,18 +927,18 @@ context <HR >                   brightcyan/17
     keyword whole noshade yellow/24
     keyword whole size yellow/24
     keyword whole width yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <HTML >                 brightcyan/17
+context <HTML >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole dir yellow/24
     keyword whole lang yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <IMG >                  brightcyan/17
+context <IMG >                  HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -954,13 +969,13 @@ context <IMG >                  brightcyan/17
     keyword "*.gif" brightred/19
     keyword "*.jpg" brightred/19
     keyword "*.png" brightred/19
-    keyword "*" cyan/5
-    keyword '*' cyan/5
+    keyword "*" HTML_STRING
+    keyword '*' HTML_STRING
     keyword whole usemap yellow/24
     keyword whole vspace yellow/24
     keyword whole width yellow/24
 
-context <I >                    brightcyan/17
+context <I >                    HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -981,10 +996,10 @@ context <I >                    brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <LINK >                 brightcyan/17
+context <LINK >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1010,29 +1025,29 @@ context <LINK >                 brightcyan/17
 
     keyword "text/css" magenta/22
     keyword "text/javascript" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <META >                 brightcyan/17
+context <META >                 HTML_TAG
     keyword = brightred/18
 
     keyword whole content yellow/24
     keyword whole http-equiv yellow/24
     keyword whole name yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <P >                    brightcyan/17
+context <P >                    HTML_TAG
     keyword = brightred/18
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <TITLE >                brightcyan/17
+context <TITLE >                HTML_TAG
     keyword = brightred/18
     keyword whole dir yellow/24
     keyword whole lang yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <TABLE >                brightcyan/17
+context <TABLE >                HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1062,10 +1077,10 @@ context <TABLE >                brightcyan/17
     keyword whole cellpadding yellow/24
     keyword "right" magenta/22
     keyword "left" magenta/22
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <SMALL >                brightcyan/17
+context <SMALL >                HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1086,9 +1101,9 @@ context <SMALL >                brightcyan/17
     keyword whole onmouseout yellow/24
     keyword whole onmouseover yellow/24
     keyword whole onmouseup yellow/24
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <TD >                   brightcyan/17
+context <TD >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1130,10 +1145,10 @@ context <TD >                   brightcyan/17
     keyword whole rowspan yellow/24
     keyword whole width yellow/24
 
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
 
-context <TR >                   brightcyan/17
+context <TR >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1169,9 +1184,9 @@ context <TR >                   brightcyan/17
     keyword "middle" magenta/22
     keyword "top" magenta/22
 
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING
 
-context <TT >                   brightcyan/17
+context <TT >                   HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1182,7 +1197,7 @@ context <TT >                   brightcyan/17
     keyword whole dir yellow/24
     keyword whole lang yellow/24
 
-context <U >                    brightcyan/17
+context <U >                    HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1193,7 +1208,7 @@ context <U >                    brightcyan/17
     keyword whole dir yellow/24
     keyword whole lang yellow/24
 
-context <PRE >                  brightcyan/17
+context <PRE >                  HTML_TAG
     keyword = brightred/18
 
     keyword whole class yellow/24
@@ -1204,7 +1219,7 @@ context <PRE >                  brightcyan/17
     keyword whole dir yellow/24
     keyword whole lang yellow/24
 
-context <!-- -->                brown/22
+context <!-- -->                CL_COMMENT
     spellcheck
 
 context <! > brightred/orange
@@ -1212,7 +1227,7 @@ context <! > brightred/orange
 
 context <% %>                   white black
 
-context exclusive <script </script>
+context exclusive <script </script><[]>CL_DEFAULT
 
     #=========================
     # <script> tag attributes
@@ -1225,95 +1240,95 @@ context exclusive <script </script>
 
     #=========================
     # Keywords
-    keyword whole arguments yellow
-    keyword whole break yellow
-    keyword whole caller yellow
-    keyword whole case yellow
-    keyword whole catch yellow
-    keyword whole class yellow
-    keyword whole const yellow
-    keyword whole constructor yellow
-    keyword whole continue yellow
-    keyword whole else yellow
-    keyword whole extends yellow
-    keyword whole export yellow
-    keyword whole default yellow
-    keyword whole delete yellow
-    keyword whole for yellow
-    keyword whole function yellow
-    keyword whole if yellow
-    keyword whole import yellow
-    keyword whole in yellow
-    keyword whole instanceof yellow
-    keyword whole let yellow
-    keyword whole new yellow
-    keyword whole of yellow
-    keyword whole prototype yellow
-    keyword whole return yellow
-    keyword whole switch yellow
-    keyword whole this yellow
-    keyword whole throw yellow
-    keyword whole try yellow
-    keyword whole typeof yellow
-    keyword whole var yellow
-    keyword whole while yellow
-    keyword whole with yellow
-    keyword whole yield yellow
+    keyword whole arguments CL_KEYWORD
+    keyword whole break CL_KEYWORD
+    keyword whole caller CL_KEYWORD
+    keyword whole case CL_KEYWORD
+    keyword whole catch CL_KEYWORD
+    keyword whole class CL_KEYWORD
+    keyword whole const CL_KEYWORD
+    keyword whole constructor CL_KEYWORD
+    keyword whole continue CL_KEYWORD
+    keyword whole else CL_KEYWORD
+    keyword whole extends CL_KEYWORD
+    keyword whole export CL_KEYWORD
+    keyword whole default CL_KEYWORD
+    keyword whole delete CL_KEYWORD
+    keyword whole for CL_KEYWORD
+    keyword whole function CL_KEYWORD
+    keyword whole if CL_KEYWORD
+    keyword whole import CL_KEYWORD
+    keyword whole in CL_KEYWORD
+    keyword whole instanceof CL_KEYWORD
+    keyword whole let CL_KEYWORD
+    keyword whole new CL_KEYWORD
+    keyword whole of CL_KEYWORD
+    keyword whole prototype CL_KEYWORD
+    keyword whole return CL_KEYWORD
+    keyword whole switch CL_KEYWORD
+    keyword whole this CL_KEYWORD
+    keyword whole throw CL_KEYWORD
+    keyword whole try CL_KEYWORD
+    keyword whole typeof CL_KEYWORD
+    keyword whole var CL_KEYWORD
+    keyword whole while CL_KEYWORD
+    keyword whole with CL_KEYWORD
+    keyword whole yield CL_KEYWORD
 
     #=========================
     # Objects
-    keyword whole ActiveXObject yellow
-    keyword whole Array yellow
-    keyword whole Boolean yellow
-    keyword whole Date yellow
-    keyword whole Dictionary yellow
-    keyword whole Enumerator yellow
-    keyword whole FileSystemObject yellow
-    keyword whole Function yellow
-    keyword whole Global yellow
-    keyword whole Image yellow
-    keyword whole Math yellow
-    keyword whole Map yellow
-    keyword whole Number yellow
-    keyword whole Object yellow
-    keyword whole Promise yellow
-    keyword whole Proxy yellow
-    keyword whole Reflect yellow
-    keyword whole Set yellow
-    keyword whole Symbol yellow
-    keyword whole TextStream yellow
-    keyword whole RegExp yellow
-    keyword whole VBArray yellow
-    keyword whole WeakMap yellow
-    keyword whole WeakSet yellow
+    keyword whole ActiveXObject CL_KEYWORD
+    keyword whole Array CL_KEYWORD
+    keyword whole Boolean CL_KEYWORD
+    keyword whole Date CL_KEYWORD
+    keyword whole Dictionary CL_KEYWORD
+    keyword whole Enumerator CL_KEYWORD
+    keyword whole FileSystemObject CL_KEYWORD
+    keyword whole Function CL_KEYWORD
+    keyword whole Global CL_KEYWORD
+    keyword whole Image CL_KEYWORD
+    keyword whole Math CL_KEYWORD
+    keyword whole Map CL_KEYWORD
+    keyword whole Number CL_KEYWORD
+    keyword whole Object CL_KEYWORD
+    keyword whole Promise CL_KEYWORD
+    keyword whole Proxy CL_KEYWORD
+    keyword whole Reflect CL_KEYWORD
+    keyword whole Set CL_KEYWORD
+    keyword whole Symbol CL_KEYWORD
+    keyword whole TextStream CL_KEYWORD
+    keyword whole RegExp CL_KEYWORD
+    keyword whole VBArray CL_KEYWORD
+    keyword whole WeakMap CL_KEYWORD
+    keyword whole WeakSet CL_KEYWORD
 
     #=========================
     # Most common functions
-    keyword whole alert yellow
-    keyword whole escape yellow
-    keyword whole eval yellow
-    keyword whole indexOf yellow
-    keyword whole isNaN yellow
-    keyword whole toString yellow
-    keyword whole unescape yellow
-    keyword whole valueOf yellow
+    keyword whole alert CL_KEYWORD
+    keyword whole escape CL_KEYWORD
+    keyword whole eval CL_KEYWORD
+    keyword whole indexOf CL_KEYWORD
+    keyword whole isNaN CL_KEYWORD
+    keyword whole toString CL_KEYWORD
+    keyword whole unescape CL_KEYWORD
+    keyword whole valueOf CL_KEYWORD
 
     #=========================
     # Constants
     keyword whole false brightgreen
     keyword whole null brightgreen
     keyword whole true brightgreen
-    keyword whole undefined yellow
+    keyword whole undefined CL_KEYWORD
 
     #=========================
     # Comments - can't handle multiline comment as it can only be done by context
-    keyword /\**\*/ brown/22
-    keyword //*\n brown/22
+    keyword /\**\*/ CL_COMMENT
+    keyword //*\n CL_COMMENT
 
     #=========================
     # String
-    keyword "*" cyan/5
-    keyword '*' cyan/5
+    keyword "*" HTML_STRING
+    keyword '*' HTML_STRING
 
     #=========================
     # Numbers
@@ -1330,36 +1345,36 @@ context exclusive <script </script>
 
     #=========================
     # Special symbols
-    keyword => brightcyan
-    keyword \. yellow
-    keyword \* yellow
-    keyword \+ yellow
-    keyword - yellow
-    keyword / yellow
-    keyword % yellow
-    keyword = yellow
-    keyword ! yellow
-    keyword & yellow
-    keyword | yellow
-    keyword ^ yellow
-    keyword ~ yellow
-    keyword > yellow
-    keyword < yellow
+    keyword => JS_SPECIAL_SYMBOL
+    keyword \. CL_SYMBOL
+    keyword \* CL_SYMBOL
+    keyword \+ CL_SYMBOL
+    keyword - CL_SYMBOL
+    keyword / CL_SYMBOL
+    keyword % CL_SYMBOL
+    keyword = CL_SYMBOL
+    keyword ! CL_SYMBOL
+    keyword & CL_SYMBOL
+    keyword | CL_SYMBOL
+    keyword ^ CL_SYMBOL
+    keyword ~ CL_SYMBOL
+    keyword > CL_SYMBOL
+    keyword < CL_SYMBOL
 
     #=========================
     # Separators
-    keyword { brightcyan
-    keyword } brightcyan
-    keyword ( brightcyan
-    keyword ) brightcyan
-    keyword [ brightcyan
-    keyword ] brightcyan
-    keyword , brightcyan
-    keyword ? brightcyan
-    keyword : brightcyan
+    keyword { JS_SPECIAL_SYMBOL
+    keyword } JS_SPECIAL_SYMBOL
+    keyword ( JS_SPECIAL_SYMBOL
+    keyword ) JS_SPECIAL_SYMBOL
+    keyword [ JS_SPECIAL_SYMBOL
+    keyword ] JS_SPECIAL_SYMBOL
+    keyword , JS_SPECIAL_SYMBOL
+    keyword ? JS_SPECIAL_SYMBOL
+    keyword : JS_SPECIAL_SYMBOL
     keyword ; brightmagenta
 
-context exclusive <style </style>
+context exclusive <style </style><[]>CL_DEFAULT
 
     #=========================
     # <style> tag attributes
@@ -1909,9 +1924,9 @@ context exclusive <style </style>
     keyword : white
     keyword ; brightmagenta
 
-context exclusive /\* \*/ brown/22
+context exclusive /\* \*/ CL_COMMENT
     spellcheck
 
 context <\{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\} >        white
     keyword = brightred
-    keyword "*" cyan/5
+    keyword "*" HTML_STRING

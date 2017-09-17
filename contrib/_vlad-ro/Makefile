@@ -1,23 +1,28 @@
-#
-# TODO: Make it rebuild when common.m4 changes
-#
 
-M4 = m4
-DEST_DIR = ../../misc/syntax
+M4 = /usr/bin/m4
+SYNTAX_DIR = ../../misc/syntax
 
-SYNTAX = \
-	syntax.syntax
-
-INSTALL_FILES = $(SYNTAX)
-
-all: $(INSTALL_FILES)
-
-%.syntax: %.syntax.m4
-	$(M4) $< > $@
+all:
+	mkdir -p bright; \
+	for i in *.syntax.m4; do \
+		$(M4) -D COLOR_SCHEME=default $$i > $(SYNTAX_DIR)/$${i%.m4}; \
+		$(M4) -D COLOR_SCHEME=bright  $$i > bright/$${i%.m4}; \
+	done
 
 install: all
-	mkdir -p $(DEST_DIR)
-	cp $(INSTALL_FILES) $(DEST_DIR)
+	./install-syntax.sh
+
+diff: all diff-html-js diff-html-css
+	for i in *.syntax.m4; do \
+		git diff 5d142251e $(SYNTAX_DIR)/$${i%.m4} > $${i%.m4}.diff; \
+	done
+
+diff-html-js: all
+	diff -u $(SYNTAX_DIR)/js.syntax $(SYNTAX_DIR)/html.syntax > html.js.diff || true
+
+diff-html-css: all
+	diff -u $(SYNTAX_DIR)/css.syntax $(SYNTAX_DIR)/html.syntax > html.css.diff || true
 
 clean:
-	rm -f $(INSTALL_FILES)
+	rm -rf bright
+	rm *.diff

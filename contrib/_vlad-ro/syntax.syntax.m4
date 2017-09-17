@@ -5,7 +5,7 @@ include(common.m4)dnl
 
 wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.\\[]{}
 
-context default CL_DEFAULT
+context default<[]>CL_DEFAULT
 # Invalid combinations, not highlighted
     keyword whole linestart\[\t\s\]whole
     keyword whole linestart\[\t\s\]wholeleft

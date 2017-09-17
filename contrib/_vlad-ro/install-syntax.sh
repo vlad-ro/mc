@@ -32,5 +32,5 @@ python_path=`which python || echo "/usr/bin/python"`
 ruby_path=`which ruby     || echo "/usr/bin/ruby"`
 
 sed "s|@PERL@|$perl_path|;s|@PYTHON@|$python_path|;s|@RUBY@|$ruby_path|" $source_dir/Syntax.in > $target_dir/Syntax
-make install
 cp $source_dir/*.syntax $target_dir
+cp ${0%/*}/bright/*.syntax $target_dir

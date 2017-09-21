@@ -1311,11 +1311,6 @@ context exclusive <script </script>
     keyword //*\n brown/22
 
     #=========================
-    # String
-    keyword "*" cyan/5
-    keyword '*' cyan/5
-
-    #=========================
     # Numbers
     wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.
 
@@ -1358,6 +1353,17 @@ context exclusive <script </script>
     keyword ? brightcyan
     keyword : brightcyan
     keyword ; brightmagenta
+
+    #=========================
+    # Strings
+    keyword "*" cyan/5
+    keyword '*' cyan/5
+    keyword `*` cyan/5
+
+    #=========================
+    # Regular expressions
+    keyword /*/ cyan/5
+
 
 context exclusive <style </style>
 
@@ -1861,7 +1867,7 @@ context exclusive <style </style>
     keyword whole yellowgreen brightgreen
 
     # Can't handle mutiline comments since it can only be done with context
-    keyword /\**\*/ lightgray
+    keyword /\**\*/ brown/22
 
     keyword whole Arial brightgreen
     keyword whole arial brightgreen
@@ -1877,11 +1883,6 @@ context exclusive <style </style>
     keyword whole Tahoma brightgreen
     keyword whole Helvetica brightgreen
     keyword whole helvetica brightgreen
-
-    keyword whole counter magenta
-    keyword whole counters magenta
-    keyword whole rgb magenta
-    keyword whole url magenta
 
 #   #1234BEAF
     keyword #\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\} red
@@ -1901,13 +1902,20 @@ context exclusive <style </style>
 
     keyword whole '.' white
 
-    keyword { white
-    keyword } white
-    keyword ( white
-    keyword ) white
-    keyword , white
-    keyword : white
+    keyword { brightcyan
+    keyword } brightcyan
+    keyword ( brightcyan
+    keyword ) brightcyan
+    keyword , brightcyan
+    keyword : brightcyan
     keyword ; brightmagenta
+
+
+    keyword whole counter magenta
+    keyword whole counters magenta
+    keyword whole rgb magenta
+    keyword whole url magenta
+
 
 context exclusive /\* \*/ brown/22
     spellcheck

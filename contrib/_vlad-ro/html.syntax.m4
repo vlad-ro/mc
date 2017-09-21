@@ -1326,11 +1326,6 @@ context exclusive <script </script><[]>CL_DEFAULT
     keyword //*\n CL_COMMENT
 
     #=========================
-    # String
-    keyword "*" HTML_STRING
-    keyword '*' HTML_STRING
-
-    #=========================
     # Numbers
     wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.
 
@@ -1373,6 +1368,17 @@ context exclusive <script </script><[]>CL_DEFAULT
     keyword ? JS_SPECIAL_SYMBOL
     keyword : JS_SPECIAL_SYMBOL
     keyword ; brightmagenta
+
+    #=========================
+    # Strings
+    keyword "*" HTML_STRING
+    keyword '*' HTML_STRING
+    keyword `*` HTML_STRING
+
+    #=========================
+    # Regular expressions
+    keyword /*/ HTML_STRING
+
 
 context exclusive <style </style><[]>CL_DEFAULT
 
@@ -1876,7 +1882,7 @@ context exclusive <style </style><[]>CL_DEFAULT
     keyword whole yellowgreen brightgreen
 
     # Can't handle mutiline comments since it can only be done with context
-    keyword /\**\*/ lightgray
+    keyword /\**\*/ CL_COMMENT
 
     keyword whole Arial brightgreen
     keyword whole arial brightgreen
@@ -1892,11 +1898,6 @@ context exclusive <style </style><[]>CL_DEFAULT
     keyword whole Tahoma brightgreen
     keyword whole Helvetica brightgreen
     keyword whole helvetica brightgreen
-
-    keyword whole counter magenta
-    keyword whole counters magenta
-    keyword whole rgb magenta
-    keyword whole url magenta
 
 #   #1234BEAF
     keyword #\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\}\{0123456789abcdefABCDEF\} red
@@ -1916,13 +1917,19 @@ context exclusive <style </style><[]>CL_DEFAULT
 
     keyword whole '.' white
 
-    keyword { white
-    keyword } white
-    keyword ( white
-    keyword ) white
-    keyword , white
-    keyword : white
+    keyword { CL_SEPARATOR
+    keyword } CL_SEPARATOR
+    keyword ( CL_SEPARATOR
+    keyword ) CL_SEPARATOR
+    keyword , CL_SEPARATOR
+    keyword : CL_SEPARATOR
     keyword ; brightmagenta
+
+
+    keyword whole counter magenta
+    keyword whole counters magenta
+    keyword whole rgb magenta
+    keyword whole url magenta
 
 context exclusive /\* \*/ CL_COMMENT
     spellcheck

@@ -23,10 +23,12 @@ diff-req: all
 	mkdir -p $(DIFF_DIR)
 
 diff-html-js: diff-req
-	diff -u $(SYNTAX_DIR)/js.syntax $(SYNTAX_DIR)/html.syntax > $(DIFF_DIR)/html.syntax_js.diff || true
+	awk '/^context exclusive <script/{p=1}/^context exclusive <style/{p=0}{if(p){print}}' $(SYNTAX_DIR)/html.syntax | \
+	diff -u $(SYNTAX_DIR)/js.syntax - > $(DIFF_DIR)/html.syntax_js.diff || true
 
 diff-html-css: diff-req
-	diff -u $(SYNTAX_DIR)/css.syntax $(SYNTAX_DIR)/html.syntax > $(DIFF_DIR)/html.syntax_css.diff || true
+	awk '/^context exclusive <style/{p=1}/^context exclusive \/\\/{p=0}{if(p){print}}' $(SYNTAX_DIR)/html.syntax | \
+	diff -u $(SYNTAX_DIR)/css.syntax - > $(DIFF_DIR)/html.syntax_css.diff || true
 
 diff-Syntax: diff-req
 	git diff 5d142251e $(SYNTAX_DIR)/Syntax.in > $(DIFF_DIR)/Syntax.in.diff

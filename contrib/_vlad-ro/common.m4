@@ -17,7 +17,6 @@ define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
 define(CL_SYS_COMMAND,		white		black)
 ',`
 # Default color scheme
-#define(CL_DEFAULT,			` lightgray')
 define(CL_DEFAULT,			`')
 define(CL_KEYWORD,			yellow)
 define(CL_SYMBOL,			yellow)

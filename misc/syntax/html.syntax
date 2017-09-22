@@ -1916,7 +1916,6 @@ context exclusive <style </style>
     keyword whole rgb magenta
     keyword whole url magenta
 
-
 context exclusive /\* \*/ brown/22
     spellcheck
 

@@ -3,6 +3,7 @@ M4 = /usr/bin/m4
 SYNTAX_DIR = ../../misc/syntax
 BRIGHT_DIR = bright
 DIFF_DIR = diff
+GIT_BASELINE = 5d142251e
 
 all:
 	mkdir -p bright; \
@@ -16,7 +17,7 @@ install: all
 
 diff: diff-req diff-html-js diff-html-css diff-Syntax
 	for i in *.syntax.m4; do \
-		git diff 5d142251e $(SYNTAX_DIR)/$${i%.m4} > $(DIFF_DIR)/$${i%.m4}.diff; \
+		git diff $(GIT_BASELINE) $(SYNTAX_DIR)/$${i%.m4} > $(DIFF_DIR)/$${i%.m4}.diff; \
 	done
 
 diff-req: all
@@ -31,7 +32,11 @@ diff-html-css: diff-req
 	diff -u $(SYNTAX_DIR)/css.syntax - > $(DIFF_DIR)/html.syntax_css.diff || true
 
 diff-Syntax: diff-req
-	git diff 5d142251e $(SYNTAX_DIR)/Syntax.in > $(DIFF_DIR)/Syntax.in.diff
+	git diff $(GIT_BASELINE) $(SYNTAX_DIR)/Syntax.in > $(DIFF_DIR)/Syntax.in.diff
 
 clean:
 	rm -rf $(BRIGHT_DIR) $(DIFF_DIR)
+
+git-merge-upstream:
+	git fetch upstream; \
+	git merge upstream/master

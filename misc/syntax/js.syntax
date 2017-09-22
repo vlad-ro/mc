@@ -197,6 +197,7 @@ context ` ` green
 context exclusive / / green
     keyword \\\\ brightgreen
     keyword \\\? brightgreen
+    keyword \\\/ brightgreen
     keyword \\\[/sSw\+\$\!\] brightgreen
     keyword (?: yellow
     keyword ( yellow

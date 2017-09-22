@@ -207,6 +207,7 @@ context ` ` CL_STRING
 context exclusive / / CL_STRING
     keyword \\\\ brightgreen
     keyword \\\? brightgreen
+    keyword \\\/ brightgreen
     keyword \\\[/sSw\+\$\!\] brightgreen
     keyword (?: CL_SYMBOL
     keyword ( CL_SYMBOL

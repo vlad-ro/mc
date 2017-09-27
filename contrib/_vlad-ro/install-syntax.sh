@@ -14,6 +14,7 @@ fi
 
 target_dir="${mc_path%/*/*}/share/mc/syntax"
 source_dir="${0%/*}/../../misc/syntax"
+color_scheme="${1:-bright}"
 
 if [ ! -d $target_dir ];
 then
@@ -33,4 +34,8 @@ ruby_path=`which ruby     || echo "/usr/bin/ruby"`
 
 sed "s|@PERL@|$perl_path|;s|@PYTHON@|$python_path|;s|@RUBY@|$ruby_path|" $source_dir/Syntax.in > $target_dir/Syntax
 cp $source_dir/*.syntax $target_dir
-cp ${0%/*}/bright/*.syntax $target_dir
+
+if [ -d ${0%/*}/$color_scheme ];
+then
+	cp ${0%/*}/$color_scheme/*.syntax $target_dir
+fi

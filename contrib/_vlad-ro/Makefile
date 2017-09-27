@@ -13,7 +13,10 @@ all:
 	done
 
 install: all
-	./install-syntax.sh
+	./install-syntax.sh bright
+
+install-default: all
+	./install-syntax.sh default
 
 diff: diff-req diff-html-js diff-html-css diff-Syntax
 	for i in *.syntax.m4; do \

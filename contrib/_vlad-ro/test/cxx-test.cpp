@@ -8,3 +8,9 @@ Comment followed by a preprocessor:
 
 /*#define */
 //#define
+
+
+"single line string - ok"
+
+"multiline string
+is not valid!?"

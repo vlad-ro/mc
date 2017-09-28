@@ -56,5 +56,8 @@ context linestart # \n brown
 
 # Ideally we would have defined comments with "context linestart \[\s\]# ...",
 # but contexts can't start with a character class. So we define comments twice.
-context linestart \s\[\s\]# \n brown
+context linestart \s\[\s\t\]# \n brown
+    spellcheck
+
+context linestart \t\[\s\t\]# \n brown
     spellcheck

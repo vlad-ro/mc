@@ -57,5 +57,8 @@ context linestart # \n CL_COMMENT
 
 # Ideally we would have defined comments with "context linestart \[\s\]# ...",
 # but contexts can't start with a character class. So we define comments twice.
-context linestart \s\[\s\]# \n CL_COMMENT
+context linestart \s\[\s\t\]# \n CL_COMMENT
+    spellcheck
+
+context linestart \t\[\s\t\]# \n CL_COMMENT
     spellcheck

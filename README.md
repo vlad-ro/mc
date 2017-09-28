@@ -26,3 +26,4 @@ All custom files are in `contrib/_vlad-ro`
 `syntax.syntax`:
 
 - Bright color scheme
+- Support comments starting with a tab character

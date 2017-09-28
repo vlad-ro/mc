@@ -93,6 +93,8 @@ context # \n brown
     keyword whole NOTE brightred
     keyword whole ToDo brightred
     keyword whole TODO brightred
+    keyword whole Warning brightred
+    keyword whole WARNING brightred
     keyword !!\[!\] brightred
     keyword ??\[?\] brightred
 
@@ -106,5 +108,7 @@ context dnl \n brown
     keyword whole NOTE brightred
     keyword whole ToDo brightred
     keyword whole TODO brightred
+    keyword whole Warning brightred
+    keyword whole WARNING brightred
     keyword !!\[!\] brightred
     keyword ??\[?\] brightred

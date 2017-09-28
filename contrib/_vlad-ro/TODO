@@ -1,3 +1,15 @@
 
-Makefile:
-- When generating html/js/css diff trim down only to the relevant sections
+common.m4:
+ - Not all CL_* variables are used (yet?) - potentially cleanup
+
+cxx.syntax:
+ - Minor changes, not worth contributing to MC
+
+js.syntax:
+ - Regular expressions need more work
+
+m4.syntax:
+ - Minor changes, not worth contributing to MC
+
+syntax.syntax:
+ - Minor changes, not worth contributing to MC

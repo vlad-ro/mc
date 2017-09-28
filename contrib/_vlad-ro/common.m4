@@ -33,6 +33,22 @@ define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
 define(CL_SYS_COMMAND,		white		black)
 ')
 
+# ?? Maybe highlite {{{ and }}}
+# ?? Also can highlite URLs and emails in comments
+define(SYNTAX_TODO,
+`    keyword whole BUG $1
+    keyword whole FixMe $1
+    keyword whole FIXME $1
+    keyword whole Note $1
+    keyword whole NOTE $1
+    keyword whole ToDo $1
+    keyword whole TODO $1
+    keyword whole Warning $1
+    keyword whole WARNING $1
+    keyword !!\[!\] $1
+    keyword ??\[?\] $1
+')dnl
+
 # Disable some m4 built-ins that can be used in syntax files
 undefine(`eval')
 undefine(`include')

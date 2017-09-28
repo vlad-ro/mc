@@ -109,6 +109,22 @@ context linestart # \n brightred
     keyword "+" red
     keyword <+> red
 
+    #=========================
+    # Preprocessor reserved words
+    keyword whole defined brightred
+    keyword whole define brightred
+    keyword whole elif brightred
+    keyword whole else brightred
+    keyword whole endif brightred
+    keyword whole error brightred
+    keyword whole ifdef brightred
+    keyword whole ifndef brightred
+    keyword whole if brightred
+    keyword whole include brightred
+    keyword whole line brightred
+    keyword whole pragma brightred
+    keyword whole undef brightred
+
 context " " green
     spellcheck
     keyword \\" brightgreen

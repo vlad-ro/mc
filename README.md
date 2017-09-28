@@ -10,6 +10,11 @@ All custom files are in `contrib/_vlad-ro`
 - Highlight `.ejs` as HTML
 - Highlight `.json` as JavaScript
 
+`cxx.syntax`:
+
+- Bright color scheme
+- List preprocessor reserved words
+
 `html.syntax`:
 
 - Bright color scheme

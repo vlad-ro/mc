@@ -10,6 +10,12 @@ All custom files are in `contrib/_vlad-ro`
 - Highlight `.ejs` as HTML
 - Highlight `.json` as JavaScript
 
+`c.syntax`:
+
+- Bright color scheme
+- Hightlight numbers and NULL
+- Advanced preprocessor highlight rules
+
 `cxx.syntax`:
 
 - Bright color scheme
@@ -26,7 +32,6 @@ All custom files are in `contrib/_vlad-ro`
 `js.syntax`:
 
 - Bright color scheme
-- Basic regular expressions highlighting
 
 `syntax.syntax`:
 

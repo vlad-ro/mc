@@ -1,6 +1,9 @@
 
 common.m4:
- - Not all CL_* variables are used (yet?) - potentially cleanup
+ - Check if all CL_* variables are used
+
+c.syntax:
+ - Highlight for numbers and preprocessor, not worth contributing to MC
 
 cxx.syntax:
  - Minor changes, not worth contributing to MC

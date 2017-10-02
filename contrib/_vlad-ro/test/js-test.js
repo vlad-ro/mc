@@ -23,3 +23,5 @@
 
 // Couldn't get regular expressions recognized as a context due to conflict with '/' used in expressions:
 var x = 1 / a + 2 / b
+
+// Great collection of regular expressions is available in highlight.js npm package, lib/languages/ folder.

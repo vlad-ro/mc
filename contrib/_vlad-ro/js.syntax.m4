@@ -200,24 +200,3 @@ context ` ` CL_STRING
     keyword \\\{\\'"abtnvfr\} brightgreen
     keyword \\\{0123\}\{01234567\}\{01234567\} brightgreen
     keyword ${*} yellow
-
-#=============================
-# Regular expressions
-
-context exclusive / / CL_STRING
-    keyword \\\\ brightgreen
-    keyword \\\? brightgreen
-    keyword \\\/ brightgreen
-    keyword \\\[/sSw\+\$\!\] brightgreen
-    keyword (?: CL_SYMBOL
-    keyword ( CL_SYMBOL
-    keyword ) CL_SYMBOL
-    keyword [ CL_SYMBOL
-    keyword ] CL_SYMBOL
-    keyword { CL_SYMBOL
-    keyword } CL_SYMBOL
-    keyword \. CL_SYMBOL
-    keyword \* CL_SYMBOL
-    keyword \+ CL_SYMBOL
-    keyword ? CL_SYMBOL
-    keyword | CL_SYMBOL

@@ -1360,10 +1360,6 @@ context exclusive <script </script>
     keyword '*' cyan/5
     keyword `*` cyan/5
 
-    #=========================
-    # Regular expressions
-    keyword /*/ cyan/5
-
 
 context exclusive <style </style>
 

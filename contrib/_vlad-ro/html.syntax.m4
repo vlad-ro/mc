@@ -1375,10 +1375,6 @@ context exclusive <script </script><[]>CL_DEFAULT
     keyword '*' HTML_STRING
     keyword `*` HTML_STRING
 
-    #=========================
-    # Regular expressions
-    keyword /*/ HTML_STRING
-
 
 context exclusive <style </style><[]>CL_DEFAULT
 

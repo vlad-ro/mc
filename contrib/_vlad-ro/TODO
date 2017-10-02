@@ -6,7 +6,7 @@ cxx.syntax:
  - Minor changes, not worth contributing to MC
 
 js.syntax:
- - Regular expressions need more work
+ - No changes, not worth contributing to MC
 
 m4.syntax:
  - Minor changes, not worth contributing to MC

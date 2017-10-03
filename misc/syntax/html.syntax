@@ -1210,8 +1210,6 @@ context <!-- -->                brown/22
 context <! > brightred/orange
     spellcheck
 
-context <% %>                   white black
-
 context exclusive <script </script>
 
     #=========================

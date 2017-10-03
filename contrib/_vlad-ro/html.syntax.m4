@@ -1225,8 +1225,6 @@ context <!-- -->                CL_COMMENT
 context <! > brightred/orange
     spellcheck
 
-context <% %>                   white black
-
 context exclusive <script </script><[]>CL_DEFAULT
 
     #=========================

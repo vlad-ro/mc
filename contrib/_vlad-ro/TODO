@@ -1,4 +1,7 @@
 
+Create screenshots showing default colors vs. bright.
+
+
 common.m4:
  - Check if all CL_* variables are used
 
@@ -7,6 +10,12 @@ c.syntax:
 
 cxx.syntax:
  - Minor changes, not worth contributing to MC
+
+ejs.syntax:
+ - Not too common and also too big change to contribute
+
+html.syntax:
+ - JavaScript and CSS highlight, too big change to contribute
 
 js.syntax:
  - No changes, not worth contributing to MC

@@ -31,6 +31,9 @@ include filehighlight.syntax
 file ..\*\\.e$ Eiffel\sSource\sFile
 include eiffel.syntax
 
+file ..\*\\.(?i:ejs)$ Embedded\sJavaScript\sTemplate
+include ejs.syntax
+
 file ..\*\\.(diff|rej|patch)$ Diff\sOutput ^(diff|Index:)\s
 include diff.syntax
 
@@ -55,7 +58,7 @@ include ruby.syntax
 file ..\*\\.(man|[0-9n]|[0-9](x|ncurses|ssl|p|pm|menu|form|vga|t|td))$ NROFF\sSource
 include nroff.syntax
 
-file ..\*\\.(?i:html?|ejs)$ HTML\sFile
+file ..\*\\.(?i:html?)$ HTML\sFile
 include html.syntax
 
 file ..\*\\.((?i:xml|xsd|xslt?|dtd)|qpg|qpg\\.in)$ XML\sdocument (\\?xml\sversion|!DOCTYPE\s)

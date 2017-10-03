@@ -21,15 +21,22 @@ All custom files are in `contrib/_vlad-ro`
 - Bright color scheme
 - List preprocessor reserved words
 
+`ejs.syntax`:
+
+- New file for Embedded JavaScript templates based on html.syntax
+
 `html.syntax`:
 
 - Bright color scheme
 - Support all HTML tags
-- Hightlight preprocessed code inside `<% %>`
 - Nested JavaScript higlighting
 - Nested CSS higlighting
 
 `js.syntax`:
+
+- Bright color scheme
+
+`m4.syntax`:
 
 - Bright color scheme
 

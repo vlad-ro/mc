@@ -172,7 +172,7 @@ include css.syntax
 file .\*ChangeLog[\\\.A-Za-z0-9_]\*$ GNU\sChangeLog\sFile
 include changelog.syntax
 
-file (..\*\\.m4$|configure\\.in|configure\\.ac) M4\sMacroprocessor\sSource
+file (..\*\\.m4$|configure\\.(in|ac)) M4\sMacroprocessor\sSource
 include m4.syntax
 
 file ..\*\\.(bat|cmd)$ DOS\sBatch

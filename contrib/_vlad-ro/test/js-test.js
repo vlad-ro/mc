@@ -21,7 +21,14 @@
 0xABDF
 0x023B3e32a     name0x023B
 
-// Couldn't get regular expressions recognized as a context due to conflict with '/' used in expressions:
-var x = 1 / a + 2 / b
+// Couldn't get regular expressions recognized as a context due to conflict with '/' used in expressions.
+// It is particularly bad when spans multiple lines:
+var x = 1 / a;
+more expressions...
+var y = 2 / b;
 
 // Great collection of regular expressions is available in highlight.js npm package, lib/languages/ folder.
+
+// Regex can break highlight badly:
+var re = /I'm|broken/;
+// Treated as string until next '

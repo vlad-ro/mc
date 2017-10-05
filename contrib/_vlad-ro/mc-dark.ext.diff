@@ -1,0 +1,56 @@
+--- mc.ext.orig	2017-10-03 09:19:24.000000000 +0100
++++ mc.ext	2017-10-05 08:04:52.000000000 +0100
+@@ -305,13 +305,43 @@
+ 
+ ### Sources ###
+ 
++# JavaScript - edit with a black background
++shell/i/.js
++	Include=editor-dark
++
++# Embedded JavaScript - edit with a black background
++shell/i/.ejs
++	Include=editor-dark
++
++# Syntax rules - edit with a black background
++regex/^Syntax(\.in)?$
++	Include=editor-dark
++
++# Syntax rules - edit with a black background
++shell/.syntax
++	Include=editor-dark
++
++# HTML - edit with a black background
++regex/i/\.htm(l)?$
++	Include=editor-dark
++
++# M4 macroprocessor source - edit with a black background
++shell/i/.m4
++	Include=editor-dark
++
++# M4 macroprocessor source - edit with a black background
++regex/configure\.(in|ac)$
++	Include=editor-dark
++
+ # C/C++
+ regex/i/\.(c|cc|cpp)$
+ 	Include=editor
++	Include=editor-dark
+ 
+ # C/C++ header
+ regex/i/\.(h|hh|hpp)$
+ 	Include=editor
++	Include=editor-dark
+ 
+ # Fortran
+ shell/i/.f
+@@ -324,6 +354,9 @@
+ include/editor
+ 	Open=%var{EDITOR:vi} %f
+ 
++include/editor-dark
++	Edit=mcedit -C editnormal=white,black:editwhitespace=blue,black %f
++
+ # .so libraries
+ regex/\.(so|so\.[0-9\.]*)$
+ 	View=%view{ascii} /usr/local/Cellar/midnight-commander/4.8.19/libexec/mc/ext.d/misc.sh view so

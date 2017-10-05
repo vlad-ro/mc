@@ -5,18 +5,33 @@ ifelse(COLOR_SCHEME, <[bright]>, <[
 define(HTML_TAG, white)
 define(HTML_STRING, brightcyan)
 define(JS_SPECIAL_SYMBOL, white)
+define(EJS_DEFAULT, white black)
+define(EJS_COMMENT, brown)
+define(EJS_KEYWORD, brightred)
+define(EJS_SYMBOL, yellow)
+define(EJS_SEPARATOR, yellow)
+]>, COLOR_SCHEME, <[dark]>, <[
+# Bright color scheme
+define(HTML_TAG, white)
+define(HTML_STRING, brightcyan)
+define(JS_SPECIAL_SYMBOL, white)
+define(EJS_DEFAULT, yellow blue)
+define(EJS_COMMENT, lightgray)
+define(EJS_KEYWORD, white)
+define(EJS_SYMBOL, white)
+define(EJS_SEPARATOR, white)
 ]>, <[
 # Default color scheme
 define(<[CL_COMMENT]>, brown/22)
 define(HTML_TAG, brightcyan/17)
 define(HTML_STRING, cyan/5)
 define(JS_SPECIAL_SYMBOL, brightcyan)
-]>)
 define(EJS_DEFAULT, white black)
 define(EJS_COMMENT, brown)
 define(EJS_KEYWORD, brightred)
 define(EJS_SYMBOL, yellow)
 define(EJS_SEPARATOR, yellow)
+]>)
 divert<[]>dnl
 
 caseinsensitive
@@ -1232,7 +1247,12 @@ context <! > brightred/orange
 
 context <% %>                   EJS_DEFAULT
     #=========================
-    # Keywords
+    # EJS keywords
+    keyword whole include EJS_KEYWORD
+    keyword whole partial EJS_KEYWORD
+
+    #=========================
+    # JavaScript keywords
     keyword whole arguments EJS_KEYWORD
     keyword whole break EJS_KEYWORD
     keyword whole caller EJS_KEYWORD

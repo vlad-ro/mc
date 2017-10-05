@@ -1,8 +1,11 @@
 
-This mc fork is focused on providing bright syntax higlighting color scheme as well as overall syntax highlighting improvements.
+This mc fork is focused on providing alternative syntax higlighting color schemes as well as overall syntax highlighting improvements.
 
 All changes are in `misc/syntax`, summary of changes per file below.
 All custom files are in `contrib/_vlad-ro`
+
+TODO: describe how to use alternative color schemes, especially dark one.
+TODO: add screenshots
 
 `Syntax.in`:
 
@@ -12,13 +15,13 @@ All custom files are in `contrib/_vlad-ro`
 
 `c.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 - Hightlight numbers and NULL
 - Advanced preprocessor highlight rules
 
 `cxx.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 - List preprocessor reserved words
 
 `ejs.syntax`:
@@ -27,20 +30,20 @@ All custom files are in `contrib/_vlad-ro`
 
 `html.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 - Support all HTML tags
 - Nested JavaScript higlighting
 - Nested CSS higlighting
 
 `js.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 
 `m4.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 
 `syntax.syntax`:
 
-- Bright color scheme
+- Bright/dark color schemes
 - Support comments starting with a tab character

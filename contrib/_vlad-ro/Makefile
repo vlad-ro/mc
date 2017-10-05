@@ -1,19 +1,22 @@
 
 M4 = /usr/bin/m4
 SYNTAX_DIR = ../../misc/syntax
-BRIGHT_DIR = bright
 DIFF_DIR = diff
 GIT_BASELINE = 5d142251e
 
 all:
-	mkdir -p bright; \
+	mkdir -p bright dark; \
 	for i in *.syntax.m4; do \
 		$(M4) -D COLOR_SCHEME=default $$i > $(SYNTAX_DIR)/$${i%.m4}; \
-		$(M4) -D COLOR_SCHEME=bright  $$i > $(BRIGHT_DIR)/$${i%.m4}; \
+		$(M4) -D COLOR_SCHEME=bright  $$i > bright/$${i%.m4}; \
+		$(M4) -D COLOR_SCHEME=dark    $$i > dark/$${i%.m4}; \
 	done
 
 install: all
 	./install-syntax.sh bright
+
+install-dark: all
+	./install-syntax.sh dark
 
 install-default: all
 	./install-syntax.sh default
@@ -38,7 +41,7 @@ diff-Syntax: diff-req
 	git diff $(GIT_BASELINE) $(SYNTAX_DIR)/Syntax.in > $(DIFF_DIR)/Syntax.in.diff
 
 clean:
-	rm -rf $(BRIGHT_DIR) $(DIFF_DIR)
+	rm -rf bright dark $(DIFF_DIR)
 
 git-merge-upstream:
 	git fetch upstream; \

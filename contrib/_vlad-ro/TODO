@@ -1,6 +1,10 @@
 
 Create screenshots showing default colors vs. bright.
 
+Try using mc-colorer.
+
+Think about adding 'context singleline' logic.
+
 
 common.m4:
  - Check if all CL_* variables are used
@@ -13,6 +17,7 @@ cxx.syntax:
 
 ejs.syntax:
  - Not too common and also too big change to contribute
+ - TODO: Add all EJS keywords
 
 html.syntax:
  - JavaScript and CSS highlight, too big change to contribute

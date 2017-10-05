@@ -2,7 +2,10 @@ include(common.m4)dnl
 divert(-1)
 ifelse(COLOR_SCHEME, <[bright]>, <[
 # Bright color scheme
-define(JS_SPECIAL_SYMBOL, white)
+define(JS_SPECIAL_SYMBOL, CL_SYMBOL)
+]>, COLOR_SCHEME, <[dark]>, <[
+# Dark background color scheme
+define(JS_SPECIAL_SYMBOL, CL_SYMBOL)
 ]>, <[
 # Default color scheme
 define(JS_SPECIAL_SYMBOL, brightcyan)

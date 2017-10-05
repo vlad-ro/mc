@@ -1212,7 +1212,12 @@ context <! > brightred/orange
 
 context <% %>                   white black
     #=========================
-    # Keywords
+    # EJS keywords
+    keyword whole include brightred
+    keyword whole partial brightred
+
+    #=========================
+    # JavaScript keywords
     keyword whole arguments brightred
     keyword whole break brightred
     keyword whole caller brightred

@@ -1,5 +1,5 @@
 divert(-1)
-ifelse(COLOR_SCHEME, `bright',`
+ifelse(COLOR_SCHEME, `bright', `
 # Bright color scheme
 define(CL_DEFAULT, 			` yellow')
 define(CL_KEYWORD,			white)
@@ -15,7 +15,23 @@ define(CL_CONSTANT,			brightgreen)
 define(CL_ALT_KEYWORD,		brightmagenta)
 define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
 define(CL_SYS_COMMAND,		white		black)
-',`
+', COLOR_SCHEME, `dark', `
+# Black background color scheme
+define(CL_DEFAULT, 			` white black')
+define(CL_KEYWORD,			brightred)
+define(CL_SYMBOL,			yellow)
+define(CL_CHAR,				brightgreen)
+define(CL_STRING,			brightcyan)
+define(CL_COMMENT,			brown)
+define(CL_TODO,				brightred)
+define(CL_SEPARATOR,		yellow)
+define(CL_TERMINATOR,		brightmagenta)
+define(CL_NUMBER,			brightgreen)
+define(CL_CONSTANT,			brightgreen)
+define(CL_ALT_KEYWORD,		brightmagenta)
+define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
+define(CL_SYS_COMMAND,		white		black)
+', `
 # Default color scheme
 define(CL_DEFAULT,			`')
 define(CL_KEYWORD,			yellow)

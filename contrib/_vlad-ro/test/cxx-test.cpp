@@ -32,3 +32,8 @@ is not valid!?"
 "foo \0 bar"
 "foo \t bar"
 "foo \n bar"
+
+// Ppreprocessor directive with a comment eats a newline and doesn't end the preprocessor context where it should:
+#endif // _KEYWORD_
+this is treated as preprocessor while it shouldn't!
+now this is regular text

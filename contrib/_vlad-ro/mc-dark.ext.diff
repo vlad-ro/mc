@@ -1,15 +1,11 @@
 --- mc.ext.orig	2017-10-03 09:19:24.000000000 +0100
-+++ mc.ext	2017-10-05 08:04:52.000000000 +0100
++++ mc.ext	2017-10-09 17:52:20.000000000 +0100
 @@ -305,13 +305,43 @@
  
  ### Sources ###
  
 +# JavaScript - edit with a black background
-+shell/i/.js
-+	Include=editor-dark
-+
-+# Embedded JavaScript - edit with a black background
-+shell/i/.ejs
++regex/i/\.js(on)?
 +	Include=editor-dark
 +
 +# Syntax rules - edit with a black background
@@ -30,6 +26,10 @@
 +
 +# M4 macroprocessor source - edit with a black background
 +regex/configure\.(in|ac)$
++	Include=editor-dark
++
++# PHP - edit with a black background
++shell/i/.php
 +	Include=editor-dark
 +
  # C/C++

@@ -30,7 +30,8 @@ context default<[]>SH_CL_DEFAULT
     keyword = SH_CL_SYMBOL
     keyword ` SH_CL_SPECIALS
     keyword ; SH_CL_SEPARATOR_2
-    keyword $(*) SH_CL_EXPRESSION
+    keyword $( SH_CL_SPECIALS
+    keyword ) SH_CL_SPECIALS
     keyword ${*} SH_CL_EXPRESSION
     keyword { SH_CL_SEPARATOR_2
     keyword } SH_CL_SEPARATOR_2
@@ -1156,6 +1157,21 @@ context exclusive ` ` SH_CL_SYS_COMMAND
     keyword \\` SH_CL_STRING
     keyword ; SH_CL_SEPARATOR_2
     keyword $(*) SH_CL_EXPRESSION
+    keyword ${*} SH_CL_EXPRESSION
+    keyword { SH_CL_SEPARATOR_2
+    keyword } SH_CL_SEPARATOR_2
+
+SH_STD_VAR
+SH_STD_REDIRECTION
+SH_SPEC_VAR<[]>dnl
+SH_STD_FUNC<[]>dnl
+SH_STD_EXTRA<[]>dnl
+
+context exclusive $( ) SH_CL_SYS_COMMAND
+    keyword '*' SH_CL_STRING
+    keyword "*" SH_CL_STRING
+    keyword `*` SH_CL_EXPRESSION
+    keyword ; SH_CL_SEPARATOR_2
     keyword ${*} SH_CL_EXPRESSION
     keyword { SH_CL_SEPARATOR_2
     keyword } SH_CL_SEPARATOR_2

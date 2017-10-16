@@ -13,8 +13,8 @@ define(CL_TERMINATOR,		brightmagenta)
 define(CL_NUMBER,			brightgreen)
 define(CL_CONSTANT,			brightgreen)
 define(CL_ALT_KEYWORD,		brightmagenta)
-define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
-define(CL_SYS_COMMAND,		white		black)
+define(CL_SCRIPT_FIRSTLINE,	brightcyan black)
+define(CL_SYS_COMMAND,		white black)
 ', COLOR_SCHEME, `dark', `
 # Black background color scheme
 define(CL_DEFAULT, 			` white black')
@@ -29,8 +29,8 @@ define(CL_TERMINATOR,		brightmagenta)
 define(CL_NUMBER,			brightgreen)
 define(CL_CONSTANT,			brightgreen)
 define(CL_ALT_KEYWORD,		brightmagenta)
-define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
-define(CL_SYS_COMMAND,		white		black)
+define(CL_SCRIPT_FIRSTLINE,	brightcyan black)
+define(CL_SYS_COMMAND,		white black)
 ', `
 # Default color scheme
 define(CL_DEFAULT,			`')
@@ -45,8 +45,8 @@ define(CL_TERMINATOR,		brightmagenta)
 define(CL_NUMBER,			cyan)
 define(CL_CONSTANT,			brightgreen)
 define(CL_ALT_KEYWORD,		cyan)
-define(CL_SCRIPT_FIRSTLINE,	brightcyan	black)
-define(CL_SYS_COMMAND,		white		black)
+define(CL_SCRIPT_FIRSTLINE,	brightcyan black)
+define(CL_SYS_COMMAND,		white black)
 ')
 
 # ?? Maybe highlite {{{ and }}}

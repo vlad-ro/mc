@@ -28,5 +28,8 @@ js.syntax:
 m4.syntax:
  - Minor changes, not worth contributing to MC
 
+sh.syntax:
+ - Double check syntax of the 'here documents' (END/EOF)
+
 syntax.syntax:
  - Minor changes, not worth contributing to MC

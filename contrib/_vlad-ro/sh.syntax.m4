@@ -18,6 +18,18 @@ define(SH_CL_FIRSTLINE, CL_SCRIPT_FIRSTLINE)
 define(SH_CL_SYS_COMMAND, lightgray black)
 define(SH_CL_EXPRESSION, brightgreen)
 define(SH_CL_VARIABLE, brightgreen)
+
+ifelse(COLOR_SCHEME, <[bright]>, <[
+# Bright color scheme
+define(SH_CL_STD_FILE, brown)
+]>, COLOR_SCHEME, <[dark]>, <[
+# Dark background color scheme
+define(SH_CL_STD_FILE, brightblue)
+]>, <[
+# Default color scheme
+define(SH_CL_STD_FILE, brightblue)
+]>)
+
 divert<[]>dnl
 context default<[]>SH_CL_DEFAULT
     keyword ;; SH_CL_SPECIALS
@@ -1113,14 +1125,14 @@ define(SH_STD_EXTRA, <[
     keyword whole TEXTDOMAIN magenta
     keyword whole VERSION magenta
 
-    keyword whole /dev/audio brightblue
-    keyword whole /dev/dsp brightblue
-    keyword whole /dev/null brightblue
-    keyword whole /dev/mixed brightblue
-    keyword whole /dev/stdin brightblue
-    keyword whole /dev/stdout brightblue
-    keyword whole /dev/stderr brightblue
-    keyword whole /dev/zero brightblue
+    keyword whole /dev/audio SH_CL_STD_FILE
+    keyword whole /dev/dsp SH_CL_STD_FILE
+    keyword whole /dev/null SH_CL_STD_FILE
+    keyword whole /dev/mixed SH_CL_STD_FILE
+    keyword whole /dev/stdin SH_CL_STD_FILE
+    keyword whole /dev/stdout SH_CL_STD_FILE
+    keyword whole /dev/stderr SH_CL_STD_FILE
+    keyword whole /dev/zero SH_CL_STD_FILE
 ]>)dnl
 SH_STD_EXTRA<[]>dnl
 

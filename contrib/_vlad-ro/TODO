@@ -30,7 +30,7 @@ m4.syntax:
 
 sh.syntax:
  - Better highlight for here documents
- - Bash command substitution context added
+ - Modern command substitution context added
 
 syntax.syntax:
  - Minor changes, not worth contributing to MC

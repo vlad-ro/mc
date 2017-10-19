@@ -1103,8 +1103,9 @@ context exclusive whole <<\[\s\]\[-\]\[\s\]\[\\\]EOF EOF green
     keyword \\\\ brightgreen
     keyword \\` brightgreen
     keyword \\" brightgreen
-    keyword $(*) brightgreen
+    keyword $(*) lightgray black
     keyword ${*} brightgreen
+    keyword `*` lightgray black
     keyword wholeright $\[0123456789\] brightred
 
     keyword wholeright $+ brightgreen
@@ -1118,8 +1119,9 @@ context exclusive whole <<\[\s\]\[-\]\[\s\]\[\\\]END END green
     keyword \\\\ brightgreen
     keyword \\` brightgreen
     keyword \\" brightgreen
-    keyword $(*) brightgreen
+    keyword $(*) lightgray black
     keyword ${*} brightgreen
+    keyword `*` lightgray black
     keyword wholeright $\[0123456789\] brightred
 
     keyword wholeright $+ brightgreen
@@ -1143,8 +1145,9 @@ context " " green
     keyword \\\\ brightgreen
     keyword \\` brightgreen
     keyword \\" brightgreen
-    keyword $(*) brightgreen
+    keyword $(*) lightgray black
     keyword ${*} brightgreen
+    keyword `*` lightgray black
     keyword wholeright $\[0123456789\] brightred
 
     keyword wholeright $+ brightgreen

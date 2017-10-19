@@ -29,7 +29,8 @@ m4.syntax:
  - Minor changes, not worth contributing to MC
 
 sh.syntax:
- - Double check syntax of the 'here documents' (END/EOF)
+ - Better highlight for here documents
+ - Bash command substitution context added
 
 syntax.syntax:
  - Minor changes, not worth contributing to MC

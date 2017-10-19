@@ -1148,8 +1148,9 @@ define(SH_SPEC_VAR_IN_STRING,
     keyword \\\\ SH_CL_CHAR
     keyword \\` SH_CL_CHAR
     keyword \\" SH_CL_CHAR
-    keyword $(*) SH_CL_EXPRESSION
+    keyword $(*) SH_CL_SYS_COMMAND
     keyword ${*} SH_CL_EXPRESSION
+    keyword `*` SH_CL_SYS_COMMAND
 SH_SPEC_VAR<[]>dnl
 ]>)dnl
 dnl

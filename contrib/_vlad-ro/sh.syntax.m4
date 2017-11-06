@@ -762,6 +762,7 @@ wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._
     keyword whole strip SH_CL_STD_FUNC
     keyword whole stty SH_CL_STD_FUNC
     keyword whole su SH_CL_STD_FUNC
+    keyword whole sudo SH_CL_STD_FUNC
     keyword whole sulogin SH_CL_STD_FUNC
     keyword whole sum SH_CL_STD_FUNC
     keyword whole superformat SH_CL_STD_FUNC

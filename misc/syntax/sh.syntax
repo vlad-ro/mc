@@ -722,6 +722,7 @@ wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._
     keyword whole strip cyan
     keyword whole stty cyan
     keyword whole su cyan
+    keyword whole sudo cyan
     keyword whole sulogin cyan
     keyword whole sum cyan
     keyword whole superformat cyan
@@ -1861,6 +1862,7 @@ wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._
     keyword whole strip cyan
     keyword whole stty cyan
     keyword whole su cyan
+    keyword whole sudo cyan
     keyword whole sulogin cyan
     keyword whole sum cyan
     keyword whole superformat cyan
@@ -2937,6 +2939,7 @@ wholechars abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._
     keyword whole strip cyan
     keyword whole stty cyan
     keyword whole su cyan
+    keyword whole sudo cyan
     keyword whole sulogin cyan
     keyword whole sum cyan
     keyword whole superformat cyan

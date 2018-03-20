@@ -274,6 +274,9 @@ include lkr.syntax
 file ..\*\\.pp$ Puppet\smanifest\sfile
 include puppet.syntax
 
+file ..\*\\.(tf|tfvars)$ Terraform
+include tf.syntax
+
 file ..\*\\.(glsl|vert|frag|geom)$ GLSL\sProgram
 include glsl.syntax
 

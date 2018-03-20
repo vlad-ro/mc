@@ -4,12 +4,19 @@ SYNTAX_DIR = ../../misc/syntax
 DIFF_DIR = diff
 GIT_BASELINE = 5d142251e
 
-all:
-	mkdir -p bright dark; \
+all: init terraform
 	for i in *.syntax.m4; do \
 		$(M4) -D COLOR_SCHEME=default $$i > $(SYNTAX_DIR)/$${i%.m4}; \
 		$(M4) -D COLOR_SCHEME=bright  $$i > bright/$${i%.m4}; \
 		$(M4) -D COLOR_SCHEME=dark    $$i > dark/$${i%.m4}; \
+	done
+
+init:
+	mkdir -p bright dark
+
+terraform: init
+	for i in bright dark $(SYNTAX_DIR); do \
+		cp mcedit-syntax-terraform/tf.syntax $$i; \
 	done
 
 install: all

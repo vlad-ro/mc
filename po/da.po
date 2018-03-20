@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2017-05-02 21:10+0200\n"
-"PO-Revision-Date: 2017-04-15 09:35+0000\n"
+"POT-Creation-Date: 2018-02-03 18:28+0300\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/mc/mc/language/da/)\n"
 "Language: da\n"
@@ -580,7 +580,6 @@ msgstr "Midlertidige filer vil blive oprettet i %s\n"
 msgid "Temporary files will not be created\n"
 msgstr "Midlertidige filer vil ikke blive oprettet\n"
 
-#, c-format
 msgid "Press any key to continue..."
 msgstr "Tryk på en tast for at fortsætte..."
 
@@ -649,6 +648,10 @@ msgstr "Udskriv konfigurationsindstillinger"
 msgid "Print last working directory to specified file"
 msgstr "Udskriv sidste arbejdsmappe til angivet fil"
 
+#, fuzzy
+msgid "<file>"
+msgstr "fil"
+
 msgid "Enables subshell support (default)"
 msgstr "Aktiverer underskalunderstøttelse (standard)"
 
@@ -661,11 +664,18 @@ msgstr "Gem ftp-meddelelser i angivet fil"
 msgid "Set debug level"
 msgstr "Angiv fejlsøgningsniveau"
 
+msgid "<integer>"
+msgstr ""
+
 msgid "Launches the file viewer on a file"
 msgstr "Bruger filfremviseren på en fil"
 
 msgid "Edit files"
 msgstr "Rediger filer"
+
+#, fuzzy
+msgid "<file> ..."
+msgstr "&Åbn fil..."
 
 msgid "Forces xterm features"
 msgstr "Fremtvinger xterm-funktioner"
@@ -705,6 +715,9 @@ msgstr "Forsøg at køre med farver"
 
 msgid "Specifies a color configuration"
 msgstr "Specificerer en farveindstilling"
+
+msgid "<string>"
+msgstr ""
 
 msgid "Show mc with specified skin"
 msgstr "Vis mc med angivet tema"
@@ -1747,7 +1760,6 @@ msgstr "Kan ikke hente en lokal kopi af %s"
 msgid "The shell is already running a command"
 msgstr "Skallen kører allerede en kommando"
 
-#, c-format
 msgid "Type 'exit' to return to the Midnight Commander"
 msgstr "Skriv 'exit' for at vende tilbage til Midnight Commander"
 
@@ -1782,6 +1794,17 @@ msgid ""
 msgstr ""
 "Kan ikke chmod »%s«\n"
 "%s"
+
+#, fuzzy
+msgid "&Ignore"
+msgstr "&Ignorer lås"
+
+#, fuzzy
+msgid "Ignore &all"
+msgstr "&Ignorer lås"
+
+msgid "&Retry"
+msgstr "&Prøv igen"
 
 #, c-format
 msgid ""
@@ -1985,9 +2008,8 @@ msgstr "kolonner"
 msgid "User &mini status"
 msgstr "&Ministatus for bruger"
 
-#, fuzzy
 msgid "Listing format"
-msgstr "Redigering af &Listeformat"
+msgstr ""
 
 msgid "Executable &first"
 msgstr "&Først kørbare"
@@ -2474,11 +2496,32 @@ msgstr ""
 "Kan ikke oprette symbolsk målhenvisning »%s«\n"
 "%s"
 
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same directory"
+msgstr ""
+"»%s«\n"
+"og\n"
+"»%s«\n"
+"er den samme mappe"
+
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same file"
+msgstr ""
+"»%s«\n"
+"og\n"
+"»%s«\n"
+"er den samme fil"
+
 msgid "Ski&p all"
 msgstr ""
-
-msgid "&Retry"
-msgstr "&Prøv igen"
 
 #, c-format
 msgid ""
@@ -2498,23 +2541,19 @@ msgstr "Ing&en"
 
 #, c-format
 msgid ""
+"Cannot remove file \"%s\"\n"
+"%s"
+msgstr ""
+"Kan ikke flytte fil »%s«\n"
+"%s"
+
+#, c-format
+msgid ""
 "Cannot stat file \"%s\"\n"
 "%s"
 msgstr ""
 "Kan ikke stat fil »%s«\n"
 "%s"
-
-#, c-format
-msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same file"
-msgstr ""
-"»%s«\n"
-"og\n"
-"»%s«\n"
-"er den samme fil"
 
 #, c-format
 msgid "Cannot overwrite directory \"%s\""
@@ -2526,22 +2565,6 @@ msgid ""
 "%s"
 msgstr ""
 "Kan ikke flytte fil »%s« til »%s«\n"
-"%s"
-
-#, c-format
-msgid ""
-"Cannot remove file \"%s\"\n"
-"%s"
-msgstr ""
-"Kan ikke flytte fil »%s«\n"
-"%s"
-
-#, c-format
-msgid ""
-"Cannot delete file \"%s\"\n"
-"%s"
-msgstr ""
-"Kan ikke slette fil »%s«\n"
 "%s"
 
 #, c-format
@@ -2559,6 +2582,25 @@ msgid ""
 msgstr ""
 "Kan ikke overskrive mappe »%s«\n"
 "%s"
+
+#, c-format
+msgid ""
+"Cannot overwrite file \"%s\"\n"
+"%s"
+msgstr ""
+"Kan ikke overskrive fil »%s«\n"
+"%s"
+
+#, c-format
+msgid ""
+"Cannot move directory \"%s\" to \"%s\"\n"
+"%s"
+msgstr ""
+"Kan ikke flytte mappe »%s« til »%s«\n"
+"%s"
+
+msgid "Cannot operate on \"..\"!"
+msgstr "Kan ikke fungere med »..«!"
 
 #, c-format
 msgid ""
@@ -2721,39 +2763,8 @@ msgstr ""
 "%s"
 
 #, c-format
-msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same directory"
-msgstr ""
-"»%s«\n"
-"og\n"
-"»%s«\n"
-"er den samme mappe"
-
-#, c-format
-msgid ""
-"Cannot overwrite file \"%s\"\n"
-"%s"
-msgstr ""
-"Kan ikke overskrive fil »%s«\n"
-"%s"
-
-#, c-format
-msgid ""
-"Cannot move directory \"%s\" to \"%s\"\n"
-"%s"
-msgstr ""
-"Kan ikke flytte mappe »%s« til »%s«\n"
-"%s"
-
-#, c-format
 msgid "Directories: %zu, total size: %s"
 msgstr ""
-
-msgid "Cannot operate on \"..\"!"
-msgstr "Kan ikke fungere med »..«!"
 
 msgid "Sorry, I could not put the job in background"
 msgstr "Beklager. Jeg kunne ikke placere jobbet i baggrunden"
@@ -3179,9 +3190,8 @@ msgstr "&Hurtig visning"
 msgid "&Info"
 msgstr "&Info"
 
-#, fuzzy
 msgid "&Listing format..."
-msgstr "Redigering af &Listeformat"
+msgstr ""
 
 msgid "&Sort order..."
 msgstr "&Sorteringsrækkefølge..."
@@ -3612,50 +3622,6 @@ msgstr ""
 "Kan ikke skrive til filen %s:\n"
 "%s\n"
 
-msgid "Debug"
-msgstr "Fejlsøg"
-
-msgid "ERROR:"
-msgstr "FEJL:"
-
-msgid "True:"
-msgstr "Sand:"
-
-msgid "False:"
-msgstr "Falsk:"
-
-msgid "Error calling program"
-msgstr "Fejl ved kald af program"
-
-msgid "Warning -- ignoring file"
-msgstr "Advarsel - ignorerer fil"
-
-#, c-format
-msgid ""
-"File %s is not owned by root or you or is world writable.\n"
-"Using it may compromise your security"
-msgstr ""
-"Filen %s er hverken ejet af administrator, dig eller er global\n"
-"skrivbar. Brug af den kan muligvis kompromittere din sikkerhed"
-
-msgid "Format error on file Extensions File"
-msgstr "Formatfejl på fil for filendelser"
-
-#, c-format
-msgid "The %%var macro has no default"
-msgstr "Makroen %%var har ingen standard"
-
-#, c-format
-msgid "The %%var macro has no variable"
-msgstr "Makroen %%var har ingen variabel"
-
-#, c-format
-msgid "No suitable entries found in %s"
-msgstr "Ingen egnede punkter fundet i %s"
-
-msgid "User menu"
-msgstr "Brugermenu"
-
 msgid "Help file format error\n"
 msgstr "Formatfejl i hjælpefil\n"
 
@@ -3865,6 +3831,50 @@ msgstr ""
 
 msgid "Cache directory:"
 msgstr ""
+
+msgid "Debug"
+msgstr "Fejlsøg"
+
+msgid "ERROR:"
+msgstr "FEJL:"
+
+msgid "True:"
+msgstr "Sand:"
+
+msgid "False:"
+msgstr "Falsk:"
+
+msgid "Error calling program"
+msgstr "Fejl ved kald af program"
+
+msgid "Warning -- ignoring file"
+msgstr "Advarsel - ignorerer fil"
+
+#, c-format
+msgid ""
+"File %s is not owned by root or you or is world writable.\n"
+"Using it may compromise your security"
+msgstr ""
+"Filen %s er hverken ejet af administrator, dig eller er global\n"
+"skrivbar. Brug af den kan muligvis kompromittere din sikkerhed"
+
+msgid "Format error on file Extensions File"
+msgstr "Formatfejl på fil for filendelser"
+
+#, c-format
+msgid "The %%var macro has no default"
+msgstr "Makroen %%var har ingen standard"
+
+#, c-format
+msgid "The %%var macro has no variable"
+msgstr "Makroen %%var har ingen variabel"
+
+#, c-format
+msgid "No suitable entries found in %s"
+msgstr "Ingen egnede punkter fundet i %s"
+
+msgid "User menu"
+msgstr "Brugermenu"
 
 #, c-format
 msgid ""
@@ -4156,6 +4166,10 @@ msgstr ""
 msgid "sftp: No file handler data present for reading file"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "sftp: socket error: %s"
+msgstr "ftpfs: Afbrydelsesfejl: %s"
+
 #, c-format
 msgid "sftp: (Ctrl-G break) Listing... %s"
 msgstr ""
@@ -4400,8 +4414,9 @@ msgstr "Fortsæt fra begyndelsen?"
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
 
-#~ msgid "Listing mode"
-#~ msgstr "Listemåde"
-
-#~ msgid "&Listing mode..."
-#~ msgstr "&Visningstilstand..."
+#~ msgid ""
+#~ "Cannot delete file \"%s\"\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Kan ikke slette fil »%s«\n"
+#~ "%s"

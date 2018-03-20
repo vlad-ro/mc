@@ -2,7 +2,7 @@
    Routines invoked by a function key
    They normally operate on the current panel.
 
-   Copyright (C) 1994-2017
+   Copyright (C) 1994-2018
    Free Software Foundation, Inc.
 
    Written by:
@@ -63,11 +63,13 @@
 #include "lib/keybind.h"        /* CK_Down, CK_History */
 #include "lib/event.h"          /* mc_event_raise() */
 
-#include "src/viewer/mcviewer.h"
 #include "src/setup.h"
 #include "src/execute.h"        /* toggle_panels() */
 #include "src/history.h"
+#include "src/usermenu.h"       /* MC_GLOBAL_MENU */
 #include "src/util.h"           /* check_for_default() */
+
+#include "src/viewer/mcviewer.h"
 
 #ifdef USE_INTERNAL_EDIT
 #include "src/editor/edit.h"
@@ -85,7 +87,6 @@
 #include "panel.h"              /* WPanel */
 #include "tree.h"               /* tree_chdir() */
 #include "midnight.h"           /* change_panel() */
-#include "usermenu.h"           /* MC_GLOBAL_MENU */
 #include "command.h"            /* cmdline */
 #include "layout.h"             /* get_current_type() */
 #include "ext.h"                /* regex_command() */
@@ -171,18 +172,15 @@ do_edit (const vfs_path_t * what_vpath)
 /* --------------------------------------------------------------------------------------------- */
 
 static void
-set_panel_filter_to (WPanel * p, char *allocated_filter_string)
+set_panel_filter_to (WPanel * p, char *filter)
 {
-    g_free (p->filter);
-    p->filter = NULL;
+    MC_PTR_FREE (p->filter);
 
     /* Three ways to clear filter: NULL, "", "*" */
-    if (allocated_filter_string == NULL ||
-        allocated_filter_string[0] == '\0' ||
-        (allocated_filter_string[0] == '*' && allocated_filter_string[1] == '\0'))
-        g_free (allocated_filter_string);
+    if (filter == NULL || filter[0] == '\0' || (filter[0] == '*' && filter[1] == '\0'))
+        g_free (filter);
     else
-        p->filter = allocated_filter_string;
+        p->filter = filter;
     reread_cmd ();
 }
 
@@ -195,15 +193,14 @@ set_panel_filter (WPanel * p)
     char *reg_exp;
     const char *x;
 
-    x = p->filter ? p->filter : easy_patterns ? "*" : ".";
+    x = p->filter != NULL ? p->filter : easy_patterns ? "*" : ".";
 
     reg_exp = input_dialog_help (_("Filter"),
                                  _("Set expression for filtering filenames"),
                                  "[Filter...]", MC_HISTORY_FM_PANEL_FILTER, x, FALSE,
                                  INPUT_COMPLETE_FILENAMES);
-    if (!reg_exp)
-        return;
-    set_panel_filter_to (p, reg_exp);
+    if (reg_exp != NULL)
+        set_panel_filter_to (p, reg_exp);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -354,20 +351,24 @@ static void
 do_link (link_type_t link_type, const char *fname)
 {
     char *dest = NULL, *src = NULL;
-    vfs_path_t *fname_vpath, *dest_vpath = NULL;
+    vfs_path_t *dest_vpath = NULL;
 
-    fname_vpath = vfs_path_from_str (fname);
     if (link_type == LINK_HARDLINK)
     {
+        vfs_path_t *fname_vpath;
+
         src = g_strdup_printf (_("Link %s to:"), str_trunc (fname, 46));
         dest =
             input_expand_dialog (_("Link"), src, MC_HISTORY_FM_LINK, "", INPUT_COMPLETE_FILENAMES);
-        if (!dest || !*dest)
+        if (dest == NULL || *dest == '\0')
             goto cleanup;
         save_cwds_stat ();
+
+        fname_vpath = vfs_path_from_str (fname);
         dest_vpath = vfs_path_from_str (dest);
-        if (-1 == mc_link (fname_vpath, dest_vpath))
+        if (mc_link (fname_vpath, dest_vpath) == -1)
             message (D_ERROR, MSG_ERROR, _("link: %s"), unix_error_string (errno));
+        vfs_path_free (fname_vpath);
     }
     else
     {
@@ -396,7 +397,7 @@ do_link (link_type_t link_type, const char *fname)
         vfs_path_free (d);
         vfs_path_free (s);
 
-        if (!dest || !*dest || !src || !*src)
+        if (dest == NULL || *dest == '\0' || src == NULL || *src == '\0')
             goto cleanup;
         save_cwds_stat ();
 
@@ -412,7 +413,6 @@ do_link (link_type_t link_type, const char *fname)
     repaint_screen ();
 
   cleanup:
-    vfs_path_free (fname_vpath);
     vfs_path_free (dest_vpath);
     g_free (src);
     g_free (dest);
@@ -522,31 +522,30 @@ view_file_at_line (const vfs_path_t * filename_vpath, gboolean plain_view, gbool
 
     if (plain_view)
     {
-        int changed_hex_mode = 0;
-        int changed_nroff_flag = 0;
-        int changed_magic_flag = 0;
+        mcview_mode_flags_t changed_flags;
 
-        mcview_altered_hex_mode = 0;
-        mcview_altered_nroff_flag = 0;
-        mcview_altered_magic_flag = 0;
-        if (mcview_default_hex_mode)
-            changed_hex_mode = 1;
-        if (mcview_default_nroff_flag)
-            changed_nroff_flag = 1;
-        if (mcview_default_magic_flag)
-            changed_magic_flag = 1;
-        mcview_default_hex_mode = 0;
-        mcview_default_nroff_flag = 0;
-        mcview_default_magic_flag = 0;
+        mcview_clear_mode_flags (&changed_flags);
+        mcview_altered_flags.hex = FALSE;
+        mcview_altered_flags.magic = FALSE;
+        mcview_altered_flags.nroff = FALSE;
+        if (mcview_global_flags.hex)
+            changed_flags.hex = TRUE;
+        if (mcview_global_flags.magic)
+            changed_flags.magic = TRUE;
+        if (mcview_global_flags.nroff)
+            changed_flags.nroff = TRUE;
+        mcview_global_flags.hex = FALSE;
+        mcview_global_flags.magic = FALSE;
+        mcview_global_flags.nroff = FALSE;
 
         ret = mcview_viewer (NULL, filename_vpath, start_line, search_start, search_end);
 
-        if (changed_hex_mode && !mcview_altered_hex_mode)
-            mcview_default_hex_mode = 1;
-        if (changed_nroff_flag && !mcview_altered_nroff_flag)
-            mcview_default_nroff_flag = 1;
-        if (changed_magic_flag && !mcview_altered_magic_flag)
-            mcview_default_magic_flag = 1;
+        if (changed_flags.hex && !mcview_altered_flags.hex)
+            mcview_global_flags.hex = TRUE;
+        if (changed_flags.magic && !mcview_altered_flags.magic)
+            mcview_global_flags.magic = TRUE;
+        if (changed_flags.nroff && !mcview_altered_flags.nroff)
+            mcview_global_flags.nroff = TRUE;
 
         dialog_switch_process_pending ();
     }

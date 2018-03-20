@@ -1,0 +1,3 @@
+[submodule "contrib/_vlad-ro/mcedit-syntax-terraform"]
+	path = contrib/_vlad-ro/mcedit-syntax-terraform
+	url = https://github.com/envimate/mcedit-syntax-terraform.git

@@ -1,7 +1,7 @@
 /*
    Setup loading/saving.
 
-   Copyright (C) 1994-2018
+   Copyright (C) 1994-2020
    Free Software Foundation, Inc.
 
    This file is part of the Midnight Commander.
@@ -36,7 +36,7 @@
 
 #include "lib/tty/tty.h"
 #include "lib/tty/key.h"
-#include "lib/mcconfig.h"
+#include "lib/mcconfig.h"       /* num_history_items_recorded */
 #include "lib/fileloc.h"
 #include "lib/timefmt.h"
 #include "lib/util.h"
@@ -87,6 +87,8 @@ gboolean boot_current_is_left = TRUE;
 
 /* If on, default for "No" in delete operations */
 gboolean safe_delete = FALSE;
+/* If on, default for "No" in overwrite files */
+gboolean safe_overwrite = FALSE;
 
 /* Controls screen clearing before an exec */
 gboolean clear_before_exec = TRUE;
@@ -154,14 +156,14 @@ gboolean easy_patterns = TRUE;
 gboolean auto_save_setup = TRUE;
 
 /* If true, then the +, - and \ keys have their special meaning only if the
- * command line is emtpy, otherwise they behave like regular letters
+ * command line is empty, otherwise they behave like regular letters
  */
 gboolean only_leading_plus_minus = TRUE;
 
 /* Automatically fills name with current selected item name on mkdir */
 gboolean auto_fill_mkdir_name = TRUE;
 
-/* If set and you don't have subshell support,then C-o will give you a shell */
+/* If set and you don't have subshell support, then C-o will give you a shell */
 gboolean output_starts_shell = FALSE;
 
 /* If set, we execute the file command to check the file type */
@@ -256,19 +258,27 @@ static const struct
 {
     const char *opt_name;
     int *opt_addr;
-} layout [] = {
+} layout_int_options [] = {
+    { "output_lines", &output_lines },
+    { "left_panel_size", &panels_layout.left_panel_size },
+    { "top_panel_size", &panels_layout.top_panel_size },
+    { NULL, NULL }
+};
+
+static const struct
+{
+    const char *opt_name;
+    gboolean *opt_addr;
+} layout_bool_options [] = {
     { "message_visible", &mc_global.message_visible },
     { "keybar_visible", &mc_global.keybar_visible },
     { "xterm_title", &xterm_title },
-    { "output_lines", &output_lines },
     { "command_prompt", &command_prompt },
     { "menubar_visible", &menubar_visible },
     { "free_space", &free_space },
     { "horizontal_split", &panels_layout.horizontal_split },
     { "vertical_equal", &panels_layout.vertical_equal },
-    { "left_panel_size", &panels_layout.left_panel_size },
     { "horizontal_equal", &panels_layout.horizontal_equal },
-    { "top_panel_size", &panels_layout.top_panel_size },
     { NULL, NULL }
 };
 
@@ -293,6 +303,7 @@ static const struct
     { "confirm_directory_hotlist_delete", &confirm_directory_hotlist_delete },
     { "confirm_view_dir", &confirm_view_dir },
     { "safe_delete", &safe_delete },
+    { "safe_overwrite", &safe_overwrite },
 #ifndef HAVE_CHARSET
     { "eight_bit_clean", &mc_global.eight_bit_clean },
     { "full_eight_bits", &mc_global.full_eight_bits },
@@ -667,34 +678,17 @@ static void
 load_layout (void)
 {
     size_t i;
-    int equal_split;
-    int first_panel_size;
-
-    /* legacy options */
-    panels_layout.horizontal_split = mc_config_get_int (mc_global.main_config, CONFIG_APP_SECTION,
-                                                        "horizontal_split", 0);
-    equal_split = mc_config_get_int (mc_global.main_config, "Layout", "equal_split", 1);
-    first_panel_size = mc_config_get_int (mc_global.main_config, "Layout", "first_panel_size", 1);
-    if (panels_layout.horizontal_split)
-    {
-        panels_layout.horizontal_equal = equal_split;
-        panels_layout.left_panel_size = first_panel_size;
-    }
-    else
-    {
-        panels_layout.vertical_equal = equal_split;
-        panels_layout.top_panel_size = first_panel_size;
-    }
 
     /* actual options override legacy ones */
-    for (i = 0; layout[i].opt_name != NULL; i++)
-        *layout[i].opt_addr = mc_config_get_int (mc_global.main_config, CONFIG_LAYOUT_SECTION,
-                                                 layout[i].opt_name, *layout[i].opt_addr);
+    for (i = 0; layout_int_options[i].opt_name != NULL; i++)
+        *layout_int_options[i].opt_addr =
+            mc_config_get_int (mc_global.main_config, CONFIG_LAYOUT_SECTION,
+                               layout_int_options[i].opt_name, *layout_int_options[i].opt_addr);
 
-    /* remove legacy options */
-    mc_config_del_key (mc_global.main_config, CONFIG_APP_SECTION, "horizontal_split");
-    mc_config_del_key (mc_global.main_config, "Layout", "equal_split");
-    mc_config_del_key (mc_global.main_config, "Layout", "first_panel_size");
+    for (i = 0; layout_bool_options[i].opt_name != NULL; i++)
+        *layout_bool_options[i].opt_addr =
+            mc_config_get_bool (mc_global.main_config, CONFIG_LAYOUT_SECTION,
+                                layout_bool_options[i].opt_name, *layout_bool_options[i].opt_addr);
 
     startup_left_mode = setup__load_panel_state ("New Left Panel");
     startup_right_mode = setup__load_panel_state ("New Right Panel");
@@ -850,7 +844,8 @@ load_setup_get_keymap_profile_config (gboolean load_from_file)
         load_setup_init_config_from_file (&keymap_config, fname, TRUE);
         goto done;
     }
-    g_free (fname);
+
+    MC_PTR_FREE (fname);
 
     /* 5) main config; [Midnight Commander] -> keymap */
     fname2 = mc_config_get_string (mc_global.main_config, CONFIG_APP_SECTION, "keymap", NULL);
@@ -977,9 +972,14 @@ save_layout (void)
     size_t i;
 
     /* Save integer options */
-    for (i = 0; layout[i].opt_name != NULL; i++)
-        mc_config_set_int (mc_global.main_config, CONFIG_LAYOUT_SECTION, layout[i].opt_name,
-                           *layout[i].opt_addr);
+    for (i = 0; layout_int_options[i].opt_name != NULL; i++)
+        mc_config_set_int (mc_global.main_config, CONFIG_LAYOUT_SECTION,
+                           layout_int_options[i].opt_name, *layout_int_options[i].opt_addr);
+
+    /* Save boolean options */
+    for (i = 0; layout_bool_options[i].opt_name != NULL; i++)
+        mc_config_set_bool (mc_global.main_config, CONFIG_LAYOUT_SECTION,
+                            layout_bool_options[i].opt_name, *layout_bool_options[i].opt_addr);
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -993,11 +993,11 @@ save_panel_types (void)
     if (mc_global.mc_run_mode != MC_RUN_FULL)
         return;
 
-    type = get_display_type (0);
+    type = get_panel_type (0);
     panel_save_type ("New Left Panel", type);
     if (type == view_listing)
         panel_save_setup (left_panel, left_panel->panel_name);
-    type = get_display_type (1);
+    type = get_panel_type (1);
     panel_save_type ("New Right Panel", type);
     if (type == view_listing)
         panel_save_setup (right_panel, right_panel->panel_name);
@@ -1073,7 +1073,6 @@ load_setup (void)
     const char *profile;
 
 #ifdef HAVE_CHARSET
-    char *buffer;
     const char *cbuffer;
 
     load_codepages_list ();
@@ -1135,6 +1134,8 @@ load_setup (void)
 #ifdef HAVE_CHARSET
     if (codepages->len > 1)
     {
+        char *buffer;
+
         buffer =
             mc_config_get_string (mc_global.main_config, CONFIG_MISC_SECTION, "display_codepage",
                                   "");
@@ -1360,6 +1361,9 @@ load_keymap_defs (gboolean load_from_file)
         dialog_keymap = g_array_new (TRUE, FALSE, sizeof (global_keymap_t));
         load_keymap_from_section (KEYMAP_SECTION_DIALOG, dialog_keymap, mc_global_keymap);
 
+        menu_keymap = g_array_new (TRUE, FALSE, sizeof (global_keymap_t));
+        load_keymap_from_section (KEYMAP_SECTION_MENU, menu_keymap, mc_global_keymap);
+
         input_keymap = g_array_new (TRUE, FALSE, sizeof (global_keymap_t));
         load_keymap_from_section (KEYMAP_SECTION_INPUT, input_keymap, mc_global_keymap);
 
@@ -1396,6 +1400,7 @@ load_keymap_defs (gboolean load_from_file)
     main_x_map = (global_keymap_t *) main_x_keymap->data;
     panel_map = (global_keymap_t *) panel_keymap->data;
     dialog_map = (global_keymap_t *) dialog_keymap->data;
+    menu_map = (global_keymap_t *) menu_keymap->data;
     input_map = (global_keymap_t *) input_keymap->data;
     listbox_map = (global_keymap_t *) listbox_keymap->data;
     tree_map = (global_keymap_t *) tree_keymap->data;
@@ -1424,6 +1429,8 @@ free_keymap_defs (void)
         g_array_free (panel_keymap, TRUE);
     if (dialog_keymap != NULL)
         g_array_free (dialog_keymap, TRUE);
+    if (menu_keymap != NULL)
+        g_array_free (menu_keymap, TRUE);
     if (input_keymap != NULL)
         g_array_free (input_keymap, TRUE);
     if (listbox_keymap != NULL)

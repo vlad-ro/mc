@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2017-11-18 19:05+0100\n"
-"PO-Revision-Date: 2017-05-03 01:03+0000\n"
+"POT-Creation-Date: 2019-12-15 12:59+0300\n"
+"PO-Revision-Date: 2019-12-16 01:49+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/mc/mc/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -458,6 +458,18 @@ msgstr ""
 msgid "The TERM environment variable is unset!\n"
 msgstr ""
 
+msgid "Cannot check SIGWINCH pipe"
+msgstr ""
+
+msgid "Cannot create pipe for SIGWINCH"
+msgstr ""
+
+msgid "Cannot configure write end of SIGWINCH pipe"
+msgstr ""
+
+msgid "Cannot configure read end of SIGWINCH pipe"
+msgstr ""
+
 #, c-format
 msgid ""
 "Screen size %dx%d is not supported.\n"
@@ -628,6 +640,9 @@ msgstr ""
 msgid "Print last working directory to specified file"
 msgstr ""
 
+msgid "<file>"
+msgstr ""
+
 msgid "Enables subshell support (default)"
 msgstr ""
 
@@ -640,10 +655,16 @@ msgstr ""
 msgid "Set debug level"
 msgstr ""
 
+msgid "<integer>"
+msgstr ""
+
 msgid "Launches the file viewer on a file"
 msgstr ""
 
 msgid "Edit files"
+msgstr ""
+
+msgid "<file> ..."
 msgstr ""
 
 msgid "Forces xterm features"
@@ -683,6 +704,9 @@ msgid "Request to run in color mode"
 msgstr ""
 
 msgid "Specifies a color configuration"
+msgstr ""
+
+msgid "<string>"
 msgstr ""
 
 msgid "Show mc with specified skin"
@@ -1269,6 +1293,9 @@ msgstr ""
 msgid "&Close"
 msgstr ""
 
+msgid "&History..."
+msgstr ""
+
 msgid "Save &as..."
 msgstr ""
 
@@ -1550,7 +1577,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2016 the Free Software Foundation"
+msgid "Copyright (C) 1996-2019 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1697,6 +1724,11 @@ msgstr ""
 msgid "The shell is already running a command"
 msgstr ""
 
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+
 msgid "Type 'exit' to return to the Midnight Commander"
 msgstr ""
 
@@ -1728,6 +1760,15 @@ msgstr ""
 msgid ""
 "Cannot chmod \"%s\"\n"
 "%s"
+msgstr ""
+
+msgid "&Ignore"
+msgstr ""
+
+msgid "Ignore &all"
+msgstr ""
+
+msgid "&Retry"
 msgstr ""
 
 #, c-format
@@ -1818,6 +1859,9 @@ msgid "Cd follows lin&ks"
 msgstr ""
 
 msgid "Sa&fe delete"
+msgstr ""
+
+msgid "Safe overwrite"
 msgstr ""
 
 msgid "A&uto save setup"
@@ -2235,11 +2279,6 @@ msgid ""
 "to use this command"
 msgstr ""
 
-msgid ""
-"Not an xterm or Linux console;\n"
-"the panels cannot be toggled."
-msgstr ""
-
 #, c-format
 msgid "'%s' is not a symbolic link"
 msgstr ""
@@ -2300,9 +2339,6 @@ msgstr ""
 msgid ""
 "Cannot chdir to \"%s\"\n"
 "%s"
-msgstr ""
-
-msgid "Cannot read directory contents"
 msgstr ""
 
 msgid "Parameter"
@@ -2377,7 +2413,20 @@ msgstr ""
 msgid " with source mask:"
 msgstr ""
 
-msgid "Cannot make the hardlink"
+#, c-format
+msgid ""
+"Cannot stat hardlink source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target hardlink \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "Cannot create target hardlink \"%s\""
 msgstr ""
 
 #, c-format
@@ -2398,10 +2447,23 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid "Ski&p all"
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same directory"
 msgstr ""
 
-msgid "&Retry"
+#, c-format
+msgid ""
+"\"%s\"\n"
+"and\n"
+"\"%s\"\n"
+"are the same file"
+msgstr ""
+
+msgid "Ski&p all"
 msgstr ""
 
 #, c-format
@@ -2422,16 +2484,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Cannot stat file \"%s\"\n"
+"Cannot remove file \"%s\"\n"
 "%s"
 msgstr ""
 
 #, c-format
 msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same file"
+"Cannot stat file \"%s\"\n"
+"%s"
 msgstr ""
 
 #, c-format
@@ -2446,18 +2506,6 @@ msgstr ""
 
 #, c-format
 msgid ""
-"Cannot remove file \"%s\"\n"
-"%s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot delete file \"%s\"\n"
-"%s"
-msgstr ""
-
-#, c-format
-msgid ""
 "Cannot remove directory \"%s\"\n"
 "%s"
 msgstr ""
@@ -2466,6 +2514,21 @@ msgstr ""
 msgid ""
 "Cannot overwrite directory \"%s\"\n"
 "%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot overwrite file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot move directory \"%s\" to \"%s\"\n"
+"%s"
+msgstr ""
+
+msgid "Cannot operate on \"..\"!"
 msgstr ""
 
 #, c-format
@@ -2595,30 +2658,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid ""
-"\"%s\"\n"
-"and\n"
-"\"%s\"\n"
-"are the same directory"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot overwrite file \"%s\"\n"
-"%s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot move directory \"%s\" to \"%s\"\n"
-"%s"
-msgstr ""
-
-#, c-format
 msgid "Directories: %zu, total size: %s"
-msgstr ""
-
-msgid "Cannot operate on \"..\"!"
 msgstr ""
 
 msgid "Sorry, I could not put the job in background"
@@ -2650,18 +2690,13 @@ msgstr ""
 msgid "%ld B/s"
 msgstr ""
 
-msgid "Target file already exists!"
+msgid "New     :"
 msgstr ""
 
-#, c-format
-msgid "New     : %s, size %s"
+msgid "Existing:"
 msgstr ""
 
-#, c-format
-msgid "Existing: %s, size %s"
-msgstr ""
-
-msgid "Overwrite this target?"
+msgid "Overwrite this file?"
 msgstr ""
 
 msgid "A&ppend"
@@ -2670,13 +2705,19 @@ msgstr ""
 msgid "&Reget"
 msgstr ""
 
-msgid "Overwrite all targets?"
+msgid "Overwrite all files?"
 msgstr ""
 
-msgid "&Update"
+msgid "Don't overwrite with &zero length file"
 msgstr ""
 
-msgid "If &size differs"
+msgid "&Older"
+msgstr ""
+
+msgid "S&maller"
+msgstr ""
+
+msgid "&Size differs"
 msgstr ""
 
 msgid "File exists"
@@ -2825,6 +2866,14 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
+
+#, c-format
+msgid "Find File: \"%s\". Content: \"%s\""
+msgstr ""
+
+#, c-format
+msgid "Find File: \"%s\""
+msgstr ""
 
 msgid "Searching"
 msgstr ""
@@ -3167,6 +3216,9 @@ msgstr ""
 msgid "Command &history"
 msgstr ""
 
+msgid "Viewed/edited files hi&story"
+msgstr ""
+
 msgid "Di&rectory hotlist"
 msgstr ""
 
@@ -3400,6 +3452,9 @@ msgstr ""
 msgid "Do you really want to execute?"
 msgstr ""
 
+msgid "Cannot read directory contents"
+msgstr ""
+
 msgid "User supplied format looks invalid, reverting to default."
 msgstr ""
 
@@ -3612,6 +3667,9 @@ msgid "Using the ncurses library\n"
 msgstr ""
 
 msgid "Using the ncursesw library\n"
+msgstr ""
+
+msgid "With builtin Editor and Aspell support\n"
 msgstr ""
 
 msgid "With builtin Editor\n"
@@ -3990,6 +4048,10 @@ msgid "sftp: Failure establishing SSH session"
 msgstr ""
 
 msgid "sftp: No file handler data present for reading file"
+msgstr ""
+
+#, c-format
+msgid "sftp: socket error: %s"
 msgstr ""
 
 #, c-format

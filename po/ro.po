@@ -5,8 +5,9 @@
 # Translators:
 # Arthur Titeica <arthur@psw.ro>, 2013
 # Arthur Țițeică <arthur.titeica@gmail.com>, 2013-2014,2017
+# Christian Eichert, 2018
 # Mihai Draghicioiu <inactive+vampirefrog@transifex.com>, 2016
-# Nicolae Crefelean, 2014
+# Nicolae Crefelean, 2014,2019
 # Slava Zanko <slavazanko@gmail.com>, 2011
 # Sorin Sfirlogea, 2016
 # Vitalie Ciubotaru <vitalie@ciubotaru.tk>, 2015
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2018-02-03 18:28+0300\n"
-"PO-Revision-Date: 2017-09-19 09:10+0000\n"
-"Last-Translator: Arthur Țițeică <arthur.titeica@gmail.com>\n"
+"POT-Creation-Date: 2020-03-09 10:53+0300\n"
+"PO-Revision-Date: 2019-12-16 01:49+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/mc/mc/language/ro/)\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -110,18 +111,22 @@ msgid ""
 "Number out of range (should be in byte range, 0 <= n <= 0xFF, expressed in "
 "hex)"
 msgstr ""
+"Număr în afara intervalului (ar trebui să fie în intervalul octet, 0 <= n <= "
+"0xFF, exprimat în hex)"
 
 msgid "Invalid character"
 msgstr "Caracter nevalid"
 
 msgid "Unmatched quotes character"
-msgstr ""
+msgstr "Caracterul ghilimelelor neîmperecheate"
 
 #, c-format
 msgid ""
 "Hex pattern error at position %d:\n"
 "%s."
 msgstr ""
+"Eroare model Hex la poziția %d\n"
+"%s."
 
 msgid "Search string not found"
 msgstr "Șirul căutat nu a fost găsit"
@@ -173,6 +178,9 @@ msgid ""
 "%s\n"
 "Default skin has been loaded"
 msgstr ""
+"Nu se poate folosi tema '%s' cu suport pentru culori reale:\n"
+"%s\n"
+"Tema implicita a fost încărcata"
 
 #, c-format
 msgid ""
@@ -185,16 +193,16 @@ msgstr ""
 "A fost încărcată tematica implicită"
 
 msgid "True color not supported with ncurses."
-msgstr ""
+msgstr "CULORI REALE nu sunt acceptate cu ncurses."
 
 msgid "True color not supported in this slang version."
-msgstr ""
+msgstr "CULORI REALE  nu sunt acceptate în această versiune slang."
 
 msgid "Your terminal doesn't even seem to support 256 colors."
-msgstr ""
+msgstr "Terminalul dvs. nu pare ca nu suporta 256 de culori."
 
 msgid "Set COLORTERM=truecolor if your terminal really supports true colors."
-msgstr ""
+msgstr "Setați COLORTERM=truecolor dacă terminalul dvs. suporta culori reale."
 
 msgid "Escape"
 msgstr "Escape"
@@ -482,6 +490,27 @@ msgstr "Shift"
 msgid "The TERM environment variable is unset!\n"
 msgstr "Variabila de mediu TERM nu este setată!\n"
 
+msgid "Cannot check SIGWINCH pipe"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Cannot create pipe for SIGWINCH: %s (%d)\n"
+msgstr "Nu pot crea fluxul filtrului"
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure write end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure read end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
 #, c-format
 msgid ""
 "Screen size %dx%d is not supported.\n"
@@ -491,43 +520,47 @@ msgstr ""
 "Verificați variabila de mediu TERM.\n"
 
 msgid "B"
-msgstr ""
+msgstr "B"
 
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 msgid "KiB"
-msgstr ""
+msgstr "KiB"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 msgid "Cannot create pipe descriptor"
-msgstr ""
+msgstr "Nu pot crea descriptorul filtrului"
 
 msgid "Cannot create pipe streams"
-msgstr ""
+msgstr "Nu pot crea fluxul filtrului"
 
 #, c-format
 msgid ""
 "Unexpected error in select() reading data from a child process:\n"
 "%s"
 msgstr ""
+"Eroare neașteptată în select() se accesează datele dintr-un proces copil :\n"
+"%s"
 
 #, c-format
 msgid ""
 "Unexpected error in waitpid():\n"
 "%s"
 msgstr ""
+"Eroare surpriza in waitpid():\n"
+"%s"
 
 msgid "Warning"
 msgstr "Atenție"
@@ -551,7 +584,7 @@ msgstr "%s: %s: %s %3d%% (%lld) bytes transferați"
 
 #, c-format
 msgid "%s: %s: %s %lld bytes transferred"
-msgstr ""
+msgstr "%s: %s: %s %lld bytes transferați "
 
 msgid "Starting linear transfer..."
 msgstr "Pornesc transferul liniar..."
@@ -634,7 +667,7 @@ msgstr "Eroare"
 
 #, c-format
 msgid "%s (%d)"
-msgstr ""
+msgstr "%s (%d)"
 
 msgid "&Abort"
 msgstr "&Anulează"
@@ -654,9 +687,8 @@ msgstr "Afișează opțiunile de configurare"
 msgid "Print last working directory to specified file"
 msgstr "Arată ultimul dosar curent în fișierul specificat"
 
-#, fuzzy
 msgid "<file>"
-msgstr "fișierul"
+msgstr "<file>"
 
 msgid "Enables subshell support (default)"
 msgstr "Activează suportul pentru subshell (implicit)"
@@ -671,7 +703,7 @@ msgid "Set debug level"
 msgstr "Nivelul de depanare"
 
 msgid "<integer>"
-msgstr ""
+msgstr "<integer>"
 
 msgid "Launches the file viewer on a file"
 msgstr "Lansează vizualizatorul pe un fișier"
@@ -679,9 +711,8 @@ msgstr "Lansează vizualizatorul pe un fișier"
 msgid "Edit files"
 msgstr "Editează fișiere"
 
-#, fuzzy
 msgid "<file> ..."
-msgstr "D&eschide fișier..."
+msgstr "<file> ..."
 
 msgid "Forces xterm features"
 msgstr "Forțează facilitățile xterm"
@@ -725,7 +756,7 @@ msgid "Specifies a color configuration"
 msgstr "Specifică o configurație de culori"
 
 msgid "<string>"
-msgstr ""
+msgstr "<string>"
 
 msgid "Show mc with specified skin"
 msgstr "Arată mc cu tematica specificată"
@@ -751,6 +782,24 @@ msgid ""
 "   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
 "   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 msgstr ""
+"--colors KEYWORD={FORE},{BACK},{ATTR}:KEYWORD2=...\n"
+"\n"
+"{FORE}, {BACK} and {ATTR} can be omitted, and the default will be used\n"
+"\n"
+" Keywords:\n"
+"   Global:       errors, disabled, reverse, gauge, header\n"
+"                 input, inputmark, inputunchanged, commandlinemark\n"
+"                 bbarhotkey, bbarbutton, statusbar\n"
+"   File display: normal, selected, marked, markselect\n"
+"   Dialog boxes: dnormal, dfocus, dhotnormal, dhotfocus, errdhotnormal,\n"
+"                 errdhotfocus\n"
+"   Menus:        menunormal, menuhot, menusel, menuhotsel, menuinactive\n"
+"   Popup menus:  pmenunormal, pmenusel, pmenutitle\n"
+"   Editor:       editnormal, editbold, editmarked, editwhitespace,\n"
+"                 editlinestate, editbg, editframe, editframeactive\n"
+"                 editframedrag\n"
+"   Viewer:       viewnormal,viewbold, viewunderline, viewselected\n"
+"   Help:         helpnormal, helpitalic, helpbold, helplink, helpslink\n"
 
 #. TRANSLATORS: don't translate color names and attributes
 msgid ""
@@ -765,18 +814,28 @@ msgid ""
 "Attributes:\n"
 "   bold, italic, underline, reverse, blink; append more with '+'\n"
 msgstr ""
+"Culori standard:\n"
+"   black, gray, red, brightred, green, brightgreen, brown,\n"
+"   yellow, blue, brightblue, magenta, brightmagenta, cyan,\n"
+"   brightcyan, lightgray and white\n"
+"\n"
+"Culori extinse, cînd 256 de culori sunt disponibile:\n"
+"   color16 la color255, sau rgb000 la rgb555 si gray0 la gray23\n"
+"\n"
+"Atribute:\n"
+"   bold, italic, underline, reverse, blink; append more with '+'\n"
 
 msgid "Color options"
 msgstr "Opțiuni culori"
 
 msgid "[+lineno] file1[:lineno] [file2[:lineno]...]"
-msgstr ""
+msgstr "[+lineno] file1[:lineno] [file2[:lineno]...]"
 
 msgid "file"
 msgstr "fișierul"
 
 msgid "file1 file2"
-msgstr ""
+msgstr "file1 file2"
 
 msgid "[this_dir] [other_panel_dir]"
 msgstr "[acest_dir] [celălalt_panou_dir]"
@@ -1339,6 +1398,9 @@ msgstr "&Nou"
 msgid "&Close"
 msgstr "În&chide"
 
+msgid "&History..."
+msgstr ""
+
 msgid "Save &as..."
 msgstr "Salvează c&a..."
 
@@ -1607,7 +1669,7 @@ msgid "Cursor be&yond end of line"
 msgstr "Cursor &dincolo de sfârşit fișier"
 
 msgid "&Group undo"
-msgstr ""
+msgstr "&Group undo"
 
 msgid "Word wrap line length:"
 msgstr "Lungime linie pentru curgere cuvinte:"
@@ -1622,8 +1684,9 @@ msgstr ""
 "Un editor de text ușor de utilizat\n"
 "creat pentru Midnight Commander."
 
-msgid "Copyright (C) 1996-2016 the Free Software Foundation"
-msgstr "Copyright (C) 1996-2016 Free Software Foundation"
+#, fuzzy
+msgid "Copyright (C) 1996-2020 the Free Software Foundation"
+msgstr "Copyright (C) 1996-2019 the Free Software Foundation"
 
 msgid "About"
 msgstr "Despre"
@@ -1775,6 +1838,13 @@ msgstr "Nu se poate prelua o copie locală a %s"
 msgid "The shell is already running a command"
 msgstr "Terminalul deja rulează o comandă"
 
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+"Nu este o consolă xterm sau Linux;\n"
+"panourile nu pot fi comutate."
+
 msgid "Type 'exit' to return to the Midnight Commander"
 msgstr "Tastați `exit' pentru a reveni în Midnight Commander"
 
@@ -1810,13 +1880,11 @@ msgstr ""
 "Nu se poate aplica chmod \"%s\"\n"
 "%s"
 
-#, fuzzy
 msgid "&Ignore"
-msgstr "&Ignoră blocarea"
+msgstr "&Ignoră"
 
-#, fuzzy
 msgid "Ignore &all"
-msgstr "&Ignoră blocarea"
+msgstr "Ignoră &tot"
 
 msgid "&Retry"
 msgstr "&Reîncearcă"
@@ -1913,6 +1981,9 @@ msgstr "Cd urmărește le&găturile"
 msgid "Sa&fe delete"
 msgstr "Ștergere sigu&ră"
 
+msgid "Safe overwrite"
+msgstr "Suprascriere sigură"
+
 msgid "A&uto save setup"
 msgstr "Auto-salvare a configurației"
 
@@ -1971,7 +2042,7 @@ msgid "Pa&ge scrolling"
 msgstr "Derulare pa&gină"
 
 msgid "Center &scrolling"
-msgstr ""
+msgstr "Centreaza &scrolling"
 
 msgid "&Mouse page scrolling"
 msgstr "Derulare pagină cu ajutorul &mausului"
@@ -2024,7 +2095,7 @@ msgid "User &mini status"
 msgstr "&Mini-status utilizator"
 
 msgid "Listing format"
-msgstr ""
+msgstr "formatul de listare"
 
 msgid "Executable &first"
 msgstr "Mai întâ&i executabilele"
@@ -2333,13 +2404,6 @@ msgstr ""
 "Pentru a utiliza această comandă ambele\n"
 "trebuie să fie în modul listare"
 
-msgid ""
-"Not an xterm or Linux console;\n"
-"the panels cannot be toggled."
-msgstr ""
-"Nu este o consolă xterm sau Linux;\n"
-"panourile nu pot fi comutate."
-
 #, c-format
 msgid "'%s' is not a symbolic link"
 msgstr "'%s' nu este o legătură simbolică"
@@ -2405,9 +2469,6 @@ msgid ""
 msgstr ""
 "Nu se poate chdir în \"%s\"\n"
 "%s"
-
-msgid "Cannot read directory contents"
-msgstr "Nu pot citi conținutul dosarului"
 
 msgid "Parameter"
 msgstr "Parametru"
@@ -2487,8 +2548,25 @@ msgstr "fișiere/dosare"
 msgid " with source mask:"
 msgstr " cu mască sursă:"
 
-msgid "Cannot make the hardlink"
-msgstr "Nu se poate crea o legătură dură"
+#, c-format
+msgid ""
+"Cannot stat hardlink source file \"%s\"\n"
+"%s"
+msgstr ""
+"Nu se poate obține starea fișierului sursă pentru hardlink \"%s\"\n"
+"%s"
+
+#, c-format
+msgid ""
+"Cannot create target hardlink \"%s\"\n"
+"%s"
+msgstr ""
+"Nu se poate crea hardlink-ul țintă \"%s\"\n"
+"%s"
+
+#, c-format
+msgid "Cannot create target hardlink \"%s\""
+msgstr "Nu se poate crea hardlink-ul țintă \"%s\""
 
 #, c-format
 msgid ""
@@ -2503,6 +2581,9 @@ msgid ""
 "\n"
 "Option Stable Symlinks will be disabled"
 msgstr ""
+"Nu pot face symlink-uri stabile în sistemele de fișiere non-locale:\n"
+"\n"
+"Opțiunea symlink-uri stabile va fi dezactivată"
 
 #, c-format
 msgid ""
@@ -2703,6 +2784,8 @@ msgid ""
 "Cannot read source file \"%s\"\n"
 "%s"
 msgstr ""
+"Nu se poate citi fișierul sursă \"%s\"\n"
+"%s"
 
 #, c-format
 msgid ""
@@ -2818,19 +2901,14 @@ msgstr "%.2f KO/s"
 msgid "%ld B/s"
 msgstr "%ld O/s"
 
-msgid "Target file already exists!"
-msgstr "Fișierul destinație deja există!"
+msgid "New     :"
+msgstr "Nou     :"
 
-#, c-format
-msgid "New     : %s, size %s"
-msgstr "Nou     : %s, mărime %s"
+msgid "Existing:"
+msgstr "Existent:"
 
-#, c-format
-msgid "Existing: %s, size %s"
-msgstr "Existent: %s, mărime %s"
-
-msgid "Overwrite this target?"
-msgstr "Suprascrie destinația?"
+msgid "Overwrite this file?"
+msgstr "Suprascrieți acest fișier?"
 
 msgid "A&ppend"
 msgstr "Adau&gă"
@@ -2838,14 +2916,20 @@ msgstr "Adau&gă"
 msgid "&Reget"
 msgstr "&Readuc"
 
-msgid "Overwrite all targets?"
-msgstr "Suprascrie toate destinațiile?"
+msgid "Overwrite all files?"
+msgstr "Suprascrieți toate fișiere?"
 
-msgid "&Update"
-msgstr "Act&ualizează"
+msgid "Don't overwrite with &zero length file"
+msgstr "Nu suprascrie cu fișiere de dimensiune &zero"
 
-msgid "If &size differs"
-msgstr "Dacă mă&rimea diferă"
+msgid "&Older"
+msgstr "Mai &vechi"
+
+msgid "S&maller"
+msgstr "Mai &mic"
+
+msgid "&Size differs"
+msgstr "&Dimensiunea diferă"
 
 msgid "File exists"
 msgstr "Fișierul există"
@@ -2936,7 +3020,7 @@ msgstr "&Editare - F4"
 
 #, c-format
 msgid "Found: %lu"
-msgstr ""
+msgstr "Găsit : %lu"
 
 msgid "Malformed regular expression"
 msgstr "Expresie regulată incorectă"
@@ -2987,9 +3071,17 @@ msgstr "Terminat"
 #, c-format
 msgid "Finished (ignored %zu directory)"
 msgid_plural "Finished (ignored %zu directories)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Finalizat (au fost ignorate %zu dosar)"
+msgstr[1] "Finalizat (au fost ignorate %zu dosare)"
+msgstr[2] "Finalizat (au fost ignorate %zu dosare)"
+
+#, c-format
+msgid "Find File: \"%s\". Content: \"%s\""
+msgstr "Găsește fișierul: \"%s\". Conținut: \"%s\""
+
+#, c-format
+msgid "Find File: \"%s\""
+msgstr "Găsește fișierul: \"%s\""
 
 msgid "Searching"
 msgstr "Caut"
@@ -3151,9 +3243,9 @@ msgstr "Mărime: %s"
 #, c-format
 msgid " (%lu block)"
 msgid_plural " (%lu blocks)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] " (%lu bloc)"
+msgstr[1] " (%lu blocuri)"
+msgstr[2] " (%lu blocuri)"
 
 #, c-format
 msgid "Owner:      %s/%s"
@@ -3220,7 +3312,7 @@ msgid "&Info"
 msgstr "&Info"
 
 msgid "&Listing format..."
-msgstr ""
+msgstr "formatul de  &listare "
 
 msgid "&Sort order..."
 msgstr "&Ordinea sortării..."
@@ -3333,6 +3425,9 @@ msgstr "Arată mărimea dosarelor"
 msgid "Command &history"
 msgstr "&Istoric comenzi"
 
+msgid "Viewed/edited files hi&story"
+msgstr ""
+
 msgid "Di&rectory hotlist"
 msgstr "Listă rapidă de dosa&re"
 
@@ -3387,9 +3482,9 @@ msgstr "Panouri:"
 #, c-format
 msgid "You have %zu opened screen. Quit anyway?"
 msgid_plural "You have %zu opened screens. Quit anyway?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Ai %zu ecran deschis. Închizi oricum?"
+msgstr[1] "Ai %zu ecrane deschise. Închizi oricum?"
+msgstr[2] "Ai %zu ecrane deschise. Închizi oricum?"
 
 msgid "The Midnight Commander"
 msgstr "Midnight Commander"
@@ -3559,6 +3654,9 @@ msgstr "Deselectează"
 
 msgid "Do you really want to execute?"
 msgstr "Chiar dorești să execuți?"
+
+msgid "Cannot read directory contents"
+msgstr "Nu pot citi conținutul dosarului"
 
 msgid "User supplied format looks invalid, reverting to default."
 msgstr ""
@@ -3747,6 +3845,16 @@ msgstr ""
 msgid "Home directory path is not absolute"
 msgstr "Calea către dosarul acasă nu este absolută"
 
+#, fuzzy
+msgid ""
+"GNU Midnight Commander\n"
+"is already running on this terminal.\n"
+"Subshell support will be disabled."
+msgstr ""
+"GNU Midnight Commander rulează\n"
+"deja în acest terminal.\n"
+"Suportul pentru subshell va fi dezactivat."
+
 #, c-format
 msgid ""
 "\n"
@@ -3777,15 +3885,6 @@ msgstr ""
 "Nu se poate salva fișierul %s:\n"
 "%s"
 
-msgid ""
-"GNU Midnight Commander is already\n"
-"running on this terminal.\n"
-"Subshell support will be disabled."
-msgstr ""
-"GNU Midnight Commander rulează\n"
-"deja în acest terminal.\n"
-"Suportul pentru subshell va fi dezactivat."
-
 #, c-format
 msgid "Cannot open named pipe %s\n"
 msgstr "Nu se poate deschide pipe %s\n"
@@ -3797,51 +3896,71 @@ msgstr "Terminalul este încă activ. Ieși oricum?"
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Atenție: Nu se poate schimba în %s.\n"
 
-msgid "Using the S-Lang library with terminfo database\n"
-msgstr "Folosind librăria S-Lang cu baza de date terminfo\n"
+#, fuzzy
+msgid "With builtin Editor and Aspell support"
+msgstr "Cu Editor încorporat și suport Aspell\n"
 
-msgid "Using the ncurses library\n"
-msgstr "Folosind librăria ncurses\n"
-
-msgid "Using the ncursesw library\n"
-msgstr "Folosind librăria ncursesw\n"
-
-msgid "With builtin Editor\n"
+#, fuzzy
+msgid "With builtin Editor"
 msgstr "Cu editor integrat\n"
 
-msgid "With optional subshell support\n"
+#, fuzzy
+msgid "With optional subshell support"
 msgstr "Cu suport pentru subshell opțional\n"
 
-msgid "With subshell support as default\n"
+#, fuzzy
+msgid "With subshell support as default"
 msgstr "Cu suport pentru subshell implicit\n"
 
-msgid "With support for background operations\n"
+#, fuzzy
+msgid "With support for background operations"
 msgstr "Cu suport pentru sarcini în fundal\n"
 
-msgid "With mouse support on xterm and Linux console\n"
+#, fuzzy
+msgid "With mouse support on xterm and Linux console"
 msgstr "Cu suport de mouse în xterm și consola Linux\n"
 
-msgid "With mouse support on xterm\n"
+#, fuzzy
+msgid "With mouse support on xterm"
 msgstr "Cu suport de mouse în xterm.\n"
 
-msgid "With support for X11 events\n"
+#, fuzzy
+msgid "With support for X11 events"
 msgstr "Cu suport pentru evenimente X11\n"
 
-msgid "With internationalization support\n"
+#, fuzzy
+msgid "With internationalization support"
 msgstr "Cu suport de internaționalizare\n"
 
-msgid "With multiple codepages support\n"
+#, fuzzy
+msgid "With multiple codepages support"
 msgstr "Cu suport pentru coduri de pagină multiple\n"
 
 #, c-format
 msgid "Built with GLib %d.%d.%d\n"
 msgstr "Construit cu GLib %d.%d.%d\n"
 
+#, fuzzy, c-format
+msgid "Built with S-Lang %s with terminfo database\n"
+msgstr "Folosind librăria S-Lang cu baza de date terminfo\n"
+
 #, c-format
+msgid "Built with ncurses %s\n"
+msgstr ""
+
+msgid "Built with ncurses (unknown version)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Built with ncursesw %s\n"
+msgstr "Folosind librăria ncursesw\n"
+
+msgid "Built with ncursesw (unknown version)"
+msgstr ""
+
 msgid "Virtual File Systems:"
 msgstr "Sistem virtual de fișiere:"
 
-#, c-format
 msgid "Data types:"
 msgstr "Tipuri de date:"
 
@@ -3849,7 +3968,7 @@ msgid "Home directory:"
 msgstr "Director acasă:"
 
 msgid "Profile root directory:"
-msgstr ""
+msgstr "Director rădăcină:"
 
 msgid "System data"
 msgstr "Date sistem"
@@ -4203,14 +4322,14 @@ msgid "sftp: Password is empty."
 msgstr "sftp: Parola este goală."
 
 msgid "sftp: Failure establishing SSH session"
-msgstr ""
+msgstr "sftp: Eroare la stabilirea unei sesiuni SSH"
 
 msgid "sftp: No file handler data present for reading file"
 msgstr "sftp: Nu există date de manipulare a citirii fișierului"
 
-#, fuzzy, c-format
+#, c-format
 msgid "sftp: socket error: %s"
-msgstr "ftpfs: eroare la abandon: %s"
+msgstr "sftp: eroare socket: %s"
 
 #, c-format
 msgid "sftp: (Ctrl-G break) Listing... %s"
@@ -4408,6 +4527,8 @@ msgid ""
 "Failed to read data from child stdout:\n"
 "%s"
 msgstr ""
+"Eroare la citirea datelor de la stdout-ul copil:\n"
+"%s"
 
 #, c-format
 msgid ""
@@ -4458,9 +4579,5 @@ msgstr "Continuă de la început?"
 msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr "Nu se poate aduce o copie locală a /ftp://some.host/editme.txt"
 
-#~ msgid ""
-#~ "Cannot delete file \"%s\"\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Nu se poate șterge fișierul \"%s\"\n"
-#~ "%s"
+#~ msgid "Using the ncurses library\n"
+#~ msgstr "Folosind librăria ncurses\n"

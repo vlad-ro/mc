@@ -1,7 +1,7 @@
 /*
    Editor high level editing commands
 
-   Copyright (C) 1996-2018
+   Copyright (C) 1996-2020
    Free Software Foundation, Inc.
 
    Written by:
@@ -62,6 +62,7 @@
 #endif
 
 #include "src/history.h"
+#include "src/file_history.h"   /* show_file_history() */
 #include "src/setup.h"          /* option_tab_spacing */
 #ifdef HAVE_CHARSET
 #include "src/selcodepage.h"
@@ -155,7 +156,7 @@ edit_save_mode_callback (Widget * w, Widget * sender, widget_msg_t msg, int parm
         {
             Widget *ww;
 
-            ww = dlg_find_by_id (DIALOG (w), edit_save_mode_input_id);
+            ww = widget_find_by_id (w, edit_save_mode_input_id);
             widget_disable (ww, RADIO (sender)->sel != 2);
             return MSG_HANDLED;
         }
@@ -1493,24 +1494,6 @@ edit_syntax_onoff_cb (void *data, void *user_data)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
- * Callback for the iteration of objects in the 'editors' array.
- * Redraw editor object.
- *
- * @param data      probably WEdit object
- * @param user_data unused
- */
-
-static void
-edit_redraw_page_cb (void *data, void *user_data)
-{
-    (void) user_data;
-
-    if (edit_widget_is_editor (CONST_WIDGET (data)))
-        ((WEdit *) data)->force |= REDRAW_PAGE;
-}
-
-/* --------------------------------------------------------------------------------------------- */
-/**
  * Insert autocompleted word into editor.
  *
  * @param edit       editor object
@@ -1558,8 +1541,8 @@ void
 edit_syntax_onoff_cmd (WDialog * h)
 {
     option_syntax_highlighting = !option_syntax_highlighting;
-    g_list_foreach (h->widgets, edit_syntax_onoff_cb, NULL);
-    dlg_redraw (h);
+    g_list_foreach (GROUP (h)->widgets, edit_syntax_onoff_cb, NULL);
+    widget_draw (WIDGET (h));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1573,8 +1556,7 @@ void
 edit_show_tabs_tws_cmd (WDialog * h)
 {
     enable_show_tabs_tws = !enable_show_tabs_tws;
-    g_list_foreach (h->widgets, edit_redraw_page_cb, NULL);
-    dlg_redraw (h);
+    widget_draw (WIDGET (h));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1588,8 +1570,7 @@ void
 edit_show_margin_cmd (WDialog * h)
 {
     show_right_margin = !show_right_margin;
-    g_list_foreach (h->widgets, edit_redraw_page_cb, NULL);
-    dlg_redraw (h);
+    widget_draw (WIDGET (h));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1604,8 +1585,7 @@ edit_show_numbers_cmd (WDialog * h)
 {
     option_line_state = !option_line_state;
     option_line_state_width = option_line_state ? LINE_STATE_WIDTH : 0;
-    g_list_foreach (h->widgets, edit_redraw_page_cb, NULL);
-    dlg_redraw (h);
+    widget_draw (WIDGET (h));
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -1859,7 +1839,7 @@ edit_store_macro_cmd (WEdit * edit)
     if (hotkey == ESC_CHAR)
         return FALSE;
 
-    tmp_act = keybind_lookup_keymap_command (editor_map, hotkey);
+    tmp_act = keybind_lookup_keymap_command (WIDGET (edit)->keymap, hotkey);
 
     /* return FALSE if try assign macro into restricted hotkeys */
     if (tmp_act == CK_MacroStartRecord
@@ -2107,6 +2087,35 @@ edit_load_cmd (WDialog * h)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
+  * Show history od edited or viewed files and open selected file.
+  *
+  * @return TRUE on success, FALSE otherwise.
+  */
+
+gboolean
+edit_load_file_from_history (WDialog * h)
+{
+    char *exp;
+    int action;
+    gboolean ret = TRUE;        /* possible cancel */
+
+    exp = show_file_history (CONST_WIDGET (h), &action);
+    if (exp != NULL && (action == CK_Edit || action == CK_Enter))
+    {
+        vfs_path_t *exp_vpath;
+
+        exp_vpath = vfs_path_from_str (exp);
+        ret = edit_load_file_from_filename (h, exp_vpath);
+        vfs_path_free (exp_vpath);
+    }
+
+    g_free (exp);
+
+    return ret;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+/**
   * Load syntax file to edit.
   *
   * @return TRUE on success
@@ -2232,15 +2241,17 @@ edit_close_cmd (WEdit * edit)
 
     if (ret)
     {
-        WDialog *h = WIDGET (edit)->owner;
+        WGroup *g = WIDGET (edit)->owner;
+        WDialog *h = DIALOG (g);
 
         if (edit->locked != 0)
             unlock_file (edit->filename_vpath);
 
-        del_widget (edit);
+        group_remove_widget (edit);
+        widget_destroy (WIDGET (edit));
 
-        if (edit_widget_is_editor (CONST_WIDGET (h->current->data)))
-            edit = (WEdit *) h->current->data;
+        if (edit_widget_is_editor (CONST_WIDGET (g->current->data)))
+            edit = (WEdit *) (g->current->data);
         else
         {
             edit = find_editor (h);
@@ -2776,7 +2787,7 @@ edit_search_cmd (WEdit * edit, gboolean again)
         /* find last search string in history */
         GList *history;
 
-        history = history_get (MC_HISTORY_SHARED_SEARCH);
+        history = mc_config_history_get (MC_HISTORY_SHARED_SEARCH);
         if (history != NULL && history->data != NULL)
         {
             edit->last_search_string = (char *) history->data;
@@ -3385,7 +3396,7 @@ edit_select_codepage_cmd (WEdit * edit)
         edit_set_codeset (edit);
 
     edit->force = REDRAW_PAGE;
-    widget_redraw (WIDGET (edit));
+    widget_draw (WIDGET (edit));
 }
 #endif
 

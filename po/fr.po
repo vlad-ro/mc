@@ -4,7 +4,8 @@
 #
 # Translators:
 # baua gonzo <baua.gonzo@gmail.com>, 2016
-# David D, 2017
+# David D, 2017-2018
+# David Prudhomme <david7.prudhomme@gmail.com>, 2018
 # Scoubidou <david.vantyghem@free.fr>, 2015
 # Effede Effede <g2sainfroc@gmail.com>, 2016
 # Matthieu Crapet <mcrapet@gmail.com>, 2013-2016
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2018-02-03 18:28+0300\n"
-"PO-Revision-Date: 2017-09-23 18:02+0000\n"
+"POT-Creation-Date: 2020-03-09 10:53+0300\n"
+"PO-Revision-Date: 2019-12-16 01:49+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/mc/mc/language/fr/)\n"
 "Language: fr\n"
@@ -119,13 +120,15 @@ msgid "Invalid character"
 msgstr "Caractère invalide"
 
 msgid "Unmatched quotes character"
-msgstr ""
+msgstr "Caractères de citation non appairés"
 
 #, c-format
 msgid ""
 "Hex pattern error at position %d:\n"
 "%s."
 msgstr ""
+"Erreur de motif Hexa à la position %d :\n"
+"%s."
 
 msgid "Search string not found"
 msgstr " Chaîne non trouvée "
@@ -198,7 +201,7 @@ msgid "True color not supported in this slang version."
 msgstr "Truecolor n'est pas permis cette version d'argot (\"slang version\")."
 
 msgid "Your terminal doesn't even seem to support 256 colors."
-msgstr "Votre terminal semble ne pas permettre 256 couleurs."
+msgstr "Votre terminal ne semble même pas permettre 256 couleurs."
 
 msgid "Set COLORTERM=truecolor if your terminal really supports true colors."
 msgstr ""
@@ -491,6 +494,27 @@ msgstr "Maj"
 msgid "The TERM environment variable is unset!\n"
 msgstr "La variable d'environnement TERM n'est pas définie !\n"
 
+msgid "Cannot check SIGWINCH pipe"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Cannot create pipe for SIGWINCH: %s (%d)\n"
+msgstr "Impossible de créer les flux des tubes"
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure write end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure read end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
 #, c-format
 msgid ""
 "Screen size %dx%d is not supported.\n"
@@ -532,7 +556,7 @@ msgid ""
 "%s"
 msgstr ""
 "Erreur inattendue dans select() pendant la lecture de données d'un processus "
-"fils:\n"
+"fils :\n"
 "%s"
 
 #, c-format
@@ -540,7 +564,7 @@ msgid ""
 "Unexpected error in waitpid():\n"
 "%s"
 msgstr ""
-"Erreur inattendue dans waitpid():\n"
+"Erreur inattendue dans waitpid() :\n"
 "%s"
 
 msgid "Warning"
@@ -670,9 +694,8 @@ msgstr "Imprimer les options de configuration"
 msgid "Print last working directory to specified file"
 msgstr "Écrit le dernier répertoire courant dans le fichier donné"
 
-#, fuzzy
 msgid "<file>"
-msgstr "fichier"
+msgstr "<file>"
 
 msgid "Enables subshell support (default)"
 msgstr "Active le support des sous-shells (par défaut)"
@@ -687,7 +710,7 @@ msgid "Set debug level"
 msgstr "Définit le niveau de débogage"
 
 msgid "<integer>"
-msgstr ""
+msgstr "<integer>"
 
 msgid "Launches the file viewer on a file"
 msgstr "Lance la visionneuse sur un fichier"
@@ -695,9 +718,8 @@ msgstr "Lance la visionneuse sur un fichier"
 msgid "Edit files"
 msgstr "Éditer les fichiers"
 
-#, fuzzy
 msgid "<file> ..."
-msgstr "&Ouvrir un fichier..."
+msgstr "<file> ..."
 
 msgid "Forces xterm features"
 msgstr "Force un attribut xterm"
@@ -741,7 +763,7 @@ msgid "Specifies a color configuration"
 msgstr "Spécifie une configuration de couleurs"
 
 msgid "<string>"
-msgstr ""
+msgstr "<string>"
 
 msgid "Show mc with specified skin"
 msgstr "Afficher mc avec le thème donné"
@@ -812,13 +834,13 @@ msgid "Color options"
 msgstr "Options de couleur"
 
 msgid "[+lineno] file1[:lineno] [file2[:lineno]...]"
-msgstr ""
+msgstr "[+ligne] fichier1[:ligne] [fichier2[:ligne]...]"
 
 msgid "file"
 msgstr "fichier"
 
 msgid "file1 file2"
-msgstr ""
+msgstr "fichier1 fichier2"
 
 msgid "[this_dir] [other_panel_dir]"
 msgstr "[ce_rép] [autre_rép_panneau]"
@@ -1237,7 +1259,7 @@ msgid ""
 "Save before close?"
 msgstr ""
 "Le fichier %s a été modifié. \n"
-"Sauvegarder avant de quitter?"
+"Sauvegarder avant de quitter ?"
 
 msgid "Close file"
 msgstr "Fermer le fichier"
@@ -1382,6 +1404,9 @@ msgstr "&Nouveau"
 
 msgid "&Close"
 msgstr "&Fermer"
+
+msgid "&History..."
+msgstr ""
 
 msgid "Save &as..."
 msgstr "Enregi&strer sous..."
@@ -1642,7 +1667,7 @@ msgid "Synta&x highlighting"
 msgstr "Coloration synta&xique"
 
 msgid "C&ursor after inserted block"
-msgstr "C&urseur après le bloc insére"
+msgstr "C&urseur après le bloc inséré"
 
 msgid "Pers&istent selection"
 msgstr "Sélection pers&istante"
@@ -1654,7 +1679,7 @@ msgid "&Group undo"
 msgstr "&Annuler un groupe"
 
 msgid "Word wrap line length:"
-msgstr "Longueur avant cesure à la ligne :"
+msgstr "Longueur avant césure à la ligne :"
 
 msgid "Editor options"
 msgstr "Options de l'éditeur"
@@ -1666,8 +1691,8 @@ msgstr ""
 "Un éditeur de text facile d'utilisation.\n"
 "écrit pour Midnight Commander."
 
-msgid "Copyright (C) 1996-2016 the Free Software Foundation"
-msgstr "Copyright (C) 1996-2016 the Free Software Foundation"
+msgid "Copyright (C) 1996-2020 the Free Software Foundation"
+msgstr ""
 
 msgid "About"
 msgstr "À propos"
@@ -1819,6 +1844,13 @@ msgstr "Impossible de récupérer une copie locale de %s "
 msgid "The shell is already running a command"
 msgstr " Le shell est déjà en train d'exécuter une commande "
 
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+"N'est pas un xterm ou une console Linux;\n"
+"les panneaux ne peuvent pas être activé."
+
 msgid "Type 'exit' to return to the Midnight Commander"
 msgstr "Tapez « exit » pour retourner à Midnight Commander"
 
@@ -1854,13 +1886,11 @@ msgstr ""
 "Ne peut changer les permissions de « %s »\n"
 "%s"
 
-#, fuzzy
 msgid "&Ignore"
-msgstr "&Ignorer le verrou"
+msgstr "&Ignorer"
 
-#, fuzzy
 msgid "Ignore &all"
-msgstr "&Ignorer le verrou"
+msgstr "Ignorer &tout"
 
 msgid "&Retry"
 msgstr "&Réessayer"
@@ -1956,6 +1986,9 @@ msgstr "cd suit les &liens"
 
 msgid "Sa&fe delete"
 msgstr "E&ffacement sûr"
+
+msgid "Safe overwrite"
+msgstr "Écrasement sécurisé"
 
 msgid "A&uto save setup"
 msgstr "Enregistrement a&utomatique de la configuration"
@@ -2068,7 +2101,7 @@ msgid "User &mini status"
 msgstr "&Mini-statut utilisateur"
 
 msgid "Listing format"
-msgstr ""
+msgstr "Format de listing"
 
 msgid "Executable &first"
 msgstr "Exécutable en &premier"
@@ -2377,13 +2410,6 @@ msgstr ""
 "Les deux panneaux doivent être en mode liste\n"
 "pour utiliser cette commande"
 
-msgid ""
-"Not an xterm or Linux console;\n"
-"the panels cannot be toggled."
-msgstr ""
-"N'est pas un xterm ou une console Linux;\n"
-"les panneaux ne peuvent pas être activé."
-
 #, c-format
 msgid "'%s' is not a symbolic link"
 msgstr "« %s » n'est pas un lien symbolique"
@@ -2449,9 +2475,6 @@ msgid ""
 msgstr ""
 "Ne peut aller dans le répertoire « %s »\n"
 "%s"
-
-msgid "Cannot read directory contents"
-msgstr " Ne peut lire le contenu du répertoire"
 
 msgid "Parameter"
 msgstr "Paramètre"
@@ -2532,8 +2555,21 @@ msgstr "fichiers/répertoires"
 msgid " with source mask:"
 msgstr "avec masque source :"
 
-msgid "Cannot make the hardlink"
-msgstr "Impossible de créer le lien physique"
+#, c-format
+msgid ""
+"Cannot stat hardlink source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target hardlink \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "Cannot create target hardlink \"%s\""
+msgstr ""
 
 #, c-format
 msgid ""
@@ -2548,6 +2584,9 @@ msgid ""
 "\n"
 "Option Stable Symlinks will be disabled"
 msgstr ""
+"Impossible de réaliser des liens symboliques stables entre systèmes de "
+"fichiers non-locaux : désactivation de l'option \"Liens symboliques stables"
+"\"."
 
 #, c-format
 msgid ""
@@ -2865,19 +2904,14 @@ msgstr "%.2f Ko/s"
 msgid "%ld B/s"
 msgstr "%ld o/s"
 
-msgid "Target file already exists!"
-msgstr "Le fichier cible existe déjà!"
+msgid "New     :"
+msgstr ""
 
-#, c-format
-msgid "New     : %s, size %s"
-msgstr "Nouveau : %s, de taille %s"
+msgid "Existing:"
+msgstr ""
 
-#, c-format
-msgid "Existing: %s, size %s"
-msgstr "Existant : %s, taille %s"
-
-msgid "Overwrite this target?"
-msgstr "Écraser cette cible ?"
+msgid "Overwrite this file?"
+msgstr ""
 
 msgid "A&ppend"
 msgstr "a&joute"
@@ -2885,14 +2919,20 @@ msgstr "a&joute"
 msgid "&Reget"
 msgstr "&Réobtenir"
 
-msgid "Overwrite all targets?"
-msgstr "Écraser toutes les cibles?"
+msgid "Overwrite all files?"
+msgstr ""
 
-msgid "&Update"
-msgstr "Mise à jo&ur"
+msgid "Don't overwrite with &zero length file"
+msgstr ""
 
-msgid "If &size differs"
-msgstr "&Si la taille diffère"
+msgid "&Older"
+msgstr ""
+
+msgid "S&maller"
+msgstr ""
+
+msgid "&Size differs"
+msgstr ""
 
 msgid "File exists"
 msgstr "Le fichier existe"
@@ -3036,6 +3076,14 @@ msgid "Finished (ignored %zu directory)"
 msgid_plural "Finished (ignored %zu directories)"
 msgstr[0] "Terminé (%zu répertoire ignoré)"
 msgstr[1] "Terminé (%zu répertoires ignorés)"
+
+#, c-format
+msgid "Find File: \"%s\". Content: \"%s\""
+msgstr ""
+
+#, c-format
+msgid "Find File: \"%s\""
+msgstr ""
 
 msgid "Searching"
 msgstr "Recherche en cours"
@@ -3265,7 +3313,7 @@ msgid "&Info"
 msgstr "&Informations"
 
 msgid "&Listing format..."
-msgstr ""
+msgstr "Format de &Listing ..."
 
 msgid "&Sort order..."
 msgstr "&Ordre de tri..."
@@ -3377,6 +3425,9 @@ msgstr "Aff&icher la taille des rép."
 
 msgid "Command &history"
 msgstr "&Historique des commandes"
+
+msgid "Viewed/edited files hi&story"
+msgstr ""
 
 msgid "Di&rectory hotlist"
 msgstr "Liste des répe&rtoires favoris"
@@ -3603,6 +3654,9 @@ msgstr "Désélectionner"
 msgid "Do you really want to execute?"
 msgstr "Voulez-vous vraiment l'exécuter ?"
 
+msgid "Cannot read directory contents"
+msgstr " Ne peut lire le contenu du répertoire"
+
 msgid "User supplied format looks invalid, reverting to default."
 msgstr ""
 "Le format fourni par l'utilisateur semble invalide, revient aux valeurs par "
@@ -3791,6 +3845,16 @@ msgstr ""
 msgid "Home directory path is not absolute"
 msgstr "Le chemin vers le répertoire utilisateur n'est pas absolu"
 
+#, fuzzy
+msgid ""
+"GNU Midnight Commander\n"
+"is already running on this terminal.\n"
+"Subshell support will be disabled."
+msgstr ""
+"GNU Midnight Commander est\n"
+"en cours d'exécution sur ce terminal.\n"
+"Le support des sous-shells sera désactivé."
+
 #, c-format
 msgid ""
 "\n"
@@ -3821,15 +3885,6 @@ msgstr ""
 "Impossible d'enregistrer le fichier « %s » :\n"
 "%s"
 
-msgid ""
-"GNU Midnight Commander is already\n"
-"running on this terminal.\n"
-"Subshell support will be disabled."
-msgstr ""
-"GNU Midnight Commander est\n"
-"en cours d'exécution sur ce terminal.\n"
-"Le support des sous-shells sera désactivé."
-
 #, c-format
 msgid "Cannot open named pipe %s\n"
 msgstr "Ne peut ouvrir le tube nommé « %s »\n"
@@ -3841,59 +3896,79 @@ msgstr "Le shell est toujours actif. Quitter tout de même ?"
 msgid "Warning: Cannot change to %s.\n"
 msgstr "Attention : ne peut aller à %s.\n"
 
-msgid "Using the S-Lang library with terminfo database\n"
-msgstr "Utilise la bibliothèque S-Lang avec la base de données terminfo\n"
-
-msgid "Using the ncurses library\n"
-msgstr "Utilisation de la bibliothèque ncurses\n"
-
-msgid "Using the ncursesw library\n"
-msgstr "Utilisation de la bibliothèque ncursesw\n"
-
-msgid "With builtin Editor\n"
+#, fuzzy
+msgid "With builtin Editor and Aspell support"
 msgstr "Avec l'éditeur intégré\n"
 
-msgid "With optional subshell support\n"
+#, fuzzy
+msgid "With builtin Editor"
+msgstr "Avec l'éditeur intégré\n"
+
+#, fuzzy
+msgid "With optional subshell support"
 msgstr "Avec support optionnel des sous-shells\n"
 
-msgid "With subshell support as default\n"
+#, fuzzy
+msgid "With subshell support as default"
 msgstr "Avec support des sous-shells par défaut\n"
 
-msgid "With support for background operations\n"
+#, fuzzy
+msgid "With support for background operations"
 msgstr "Avec support des opérations en tâche de fond\n"
 
-msgid "With mouse support on xterm and Linux console\n"
+#, fuzzy
+msgid "With mouse support on xterm and Linux console"
 msgstr "Avec support de la souris pour xterm et la console Linux\n"
 
-msgid "With mouse support on xterm\n"
+#, fuzzy
+msgid "With mouse support on xterm"
 msgstr "Avec support de la souris pour xterm\n"
 
-msgid "With support for X11 events\n"
+#, fuzzy
+msgid "With support for X11 events"
 msgstr "Avec support des événements X11\n"
 
-msgid "With internationalization support\n"
+#, fuzzy
+msgid "With internationalization support"
 msgstr "Avec support de l'internationalisation\n"
 
-msgid "With multiple codepages support\n"
+#, fuzzy
+msgid "With multiple codepages support"
 msgstr "Avec support de plusieurs codepages\n"
 
 #, c-format
 msgid "Built with GLib %d.%d.%d\n"
 msgstr "Compilé avec GLib %d.%d.%d\n"
 
+#, fuzzy, c-format
+msgid "Built with S-Lang %s with terminfo database\n"
+msgstr "Utilise la bibliothèque S-Lang avec la base de données terminfo\n"
+
 #, c-format
+msgid "Built with ncurses %s\n"
+msgstr ""
+
+msgid "Built with ncurses (unknown version)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Built with ncursesw %s\n"
+msgstr "Utilisation de la bibliothèque ncursesw\n"
+
+msgid "Built with ncursesw (unknown version)"
+msgstr ""
+
 msgid "Virtual File Systems:"
 msgstr "Systèmes des fichiers virtuels :"
 
-#, c-format
 msgid "Data types:"
 msgstr "Types de données :"
 
 msgid "Home directory:"
-msgstr ""
+msgstr "Répertoire de l'utilisateur :"
 
 msgid "Profile root directory:"
-msgstr ""
+msgstr "Répertoire racine de profil :"
 
 msgid "System data"
 msgstr "Données système"
@@ -4255,9 +4330,9 @@ msgid "sftp: No file handler data present for reading file"
 msgstr ""
 "sftp : ne peut lire le fichier, aucune association de fichiers disponible"
 
-#, fuzzy, c-format
+#, c-format
 msgid "sftp: socket error: %s"
-msgstr "ftpfs : erreur d'abandon : %s"
+msgstr "sftp : erreur de socket : %s"
 
 #, c-format
 msgid "sftp: (Ctrl-G break) Listing... %s"
@@ -4507,9 +4582,5 @@ msgid "Cannot fetch a local copy of /ftp://some.host/editme.txt"
 msgstr ""
 "Impossible de récupérer localement le fichier /ftp://some.host/editme.txt"
 
-#~ msgid ""
-#~ "Cannot delete file \"%s\"\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible d'effacer le fichier « %s »\n"
-#~ "%s"
+#~ msgid "Using the ncurses library\n"
+#~ msgstr "Utilisation de la bibliothèque ncurses\n"

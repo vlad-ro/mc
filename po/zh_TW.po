@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Midnight Commander\n"
 "Report-Msgid-Bugs-To: http://www.midnight-commander.org/\n"
-"POT-Creation-Date: 2018-02-03 18:28+0300\n"
-"PO-Revision-Date: 2017-09-19 09:10+0000\n"
+"POT-Creation-Date: 2020-03-09 10:53+0300\n"
+"PO-Revision-Date: 2019-12-16 01:49+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/mc/mc/language/"
 "zh_TW/)\n"
@@ -460,6 +460,27 @@ msgstr ""
 msgid "The TERM environment variable is unset!\n"
 msgstr "環境變數 TERM 並未設定！ \n"
 
+msgid "Cannot check SIGWINCH pipe"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Cannot create pipe for SIGWINCH: %s (%d)\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure write end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
+#, c-format
+msgid ""
+"\n"
+"Cannot configure read end of SIGWINCH pipe: %s (%d)\n"
+msgstr ""
+
 #, c-format
 msgid ""
 "Screen size %dx%d is not supported.\n"
@@ -632,9 +653,8 @@ msgstr ""
 msgid "Print last working directory to specified file"
 msgstr ""
 
-#, fuzzy
 msgid "<file>"
-msgstr "檔案"
+msgstr ""
 
 msgid "Enables subshell support (default)"
 msgstr "支援使用次殼層 (預設值)"
@@ -1286,6 +1306,9 @@ msgstr ""
 msgid "&Close"
 msgstr ""
 
+msgid "&History..."
+msgstr ""
+
 msgid "Save &as..."
 msgstr ""
 
@@ -1567,7 +1590,7 @@ msgid ""
 "written for the Midnight Commander."
 msgstr ""
 
-msgid "Copyright (C) 1996-2016 the Free Software Foundation"
+msgid "Copyright (C) 1996-2020 the Free Software Foundation"
 msgstr ""
 
 msgid "About"
@@ -1714,6 +1737,11 @@ msgstr ""
 msgid "The shell is already running a command"
 msgstr ""
 
+msgid ""
+"Not an xterm or Linux console;\n"
+"the panels cannot be toggled."
+msgstr ""
+
 msgid "Type 'exit' to return to the Midnight Commander"
 msgstr ""
 
@@ -1750,9 +1778,8 @@ msgstr ""
 msgid "&Ignore"
 msgstr ""
 
-#, fuzzy
 msgid "Ignore &all"
-msgstr "設定全部"
+msgstr ""
 
 msgid "&Retry"
 msgstr "重試"
@@ -1845,6 +1872,9 @@ msgid "Cd follows lin&ks"
 msgstr ""
 
 msgid "Sa&fe delete"
+msgstr ""
+
+msgid "Safe overwrite"
 msgstr ""
 
 msgid "A&uto save setup"
@@ -2261,11 +2291,6 @@ msgid ""
 "to use this command"
 msgstr ""
 
-msgid ""
-"Not an xterm or Linux console;\n"
-"the panels cannot be toggled."
-msgstr ""
-
 #, c-format
 msgid "'%s' is not a symbolic link"
 msgstr ""
@@ -2326,9 +2351,6 @@ msgstr ""
 msgid ""
 "Cannot chdir to \"%s\"\n"
 "%s"
-msgstr ""
-
-msgid "Cannot read directory contents"
 msgstr ""
 
 msgid "Parameter"
@@ -2403,7 +2425,20 @@ msgstr "檔案/目錄"
 msgid " with source mask:"
 msgstr " 以來源遮罩："
 
-msgid "Cannot make the hardlink"
+#, c-format
+msgid ""
+"Cannot stat hardlink source file \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot create target hardlink \"%s\"\n"
+"%s"
+msgstr ""
+
+#, c-format
+msgid "Cannot create target hardlink \"%s\""
 msgstr ""
 
 #, c-format
@@ -2667,19 +2702,14 @@ msgstr ""
 msgid "%ld B/s"
 msgstr ""
 
-msgid "Target file already exists!"
+msgid "New     :"
 msgstr ""
 
-#, c-format
-msgid "New     : %s, size %s"
+msgid "Existing:"
 msgstr ""
 
-#, c-format
-msgid "Existing: %s, size %s"
+msgid "Overwrite this file?"
 msgstr ""
-
-msgid "Overwrite this target?"
-msgstr "蓋寫？"
 
 msgid "A&ppend"
 msgstr "追加"
@@ -2687,14 +2717,20 @@ msgstr "追加"
 msgid "&Reget"
 msgstr "重抓"
 
-msgid "Overwrite all targets?"
-msgstr "要全部蓋寫？"
+msgid "Overwrite all files?"
+msgstr ""
 
-msgid "&Update"
-msgstr "更新"
+msgid "Don't overwrite with &zero length file"
+msgstr ""
 
-msgid "If &size differs"
-msgstr "若大小不同"
+msgid "&Older"
+msgstr ""
+
+msgid "S&maller"
+msgstr ""
+
+msgid "&Size differs"
+msgstr ""
 
 msgid "File exists"
 msgstr ""
@@ -2837,6 +2873,14 @@ msgstr "完成"
 msgid "Finished (ignored %zu directory)"
 msgid_plural "Finished (ignored %zu directories)"
 msgstr[0] ""
+
+#, c-format
+msgid "Find File: \"%s\". Content: \"%s\""
+msgstr ""
+
+#, c-format
+msgid "Find File: \"%s\""
+msgstr ""
 
 msgid "Searching"
 msgstr "搜尋中"
@@ -3174,6 +3218,9 @@ msgstr ""
 msgid "Command &history"
 msgstr ""
 
+msgid "Viewed/edited files hi&story"
+msgstr ""
+
 msgid "Di&rectory hotlist"
 msgstr ""
 
@@ -3397,6 +3444,9 @@ msgstr ""
 msgid "Do you really want to execute?"
 msgstr ""
 
+msgid "Cannot read directory contents"
+msgstr ""
+
 msgid "User supplied format looks invalid, reverting to default."
 msgstr "使用者提供的格式似乎是錯誤的, 回復到預設值."
 
@@ -3576,6 +3626,12 @@ msgstr ""
 msgid "Home directory path is not absolute"
 msgstr ""
 
+msgid ""
+"GNU Midnight Commander\n"
+"is already running on this terminal.\n"
+"Subshell support will be disabled."
+msgstr ""
+
 #, c-format
 msgid ""
 "\n"
@@ -3601,12 +3657,6 @@ msgid ""
 "%s"
 msgstr ""
 
-msgid ""
-"GNU Midnight Commander is already\n"
-"running on this terminal.\n"
-"Subshell support will be disabled."
-msgstr ""
-
 #, c-format
 msgid "Cannot open named pipe %s\n"
 msgstr "無法開啟具名管線 %s\n"
@@ -3618,40 +3668,43 @@ msgstr ""
 msgid "Warning: Cannot change to %s.\n"
 msgstr "警告： 無法改變到 %s.\n"
 
-msgid "Using the S-Lang library with terminfo database\n"
-msgstr ""
-
-msgid "Using the ncurses library\n"
-msgstr ""
-
-msgid "Using the ncursesw library\n"
-msgstr ""
-
-msgid "With builtin Editor\n"
+#, fuzzy
+msgid "With builtin Editor and Aspell support"
 msgstr "使用內建編輯器\n"
 
-msgid "With optional subshell support\n"
-msgstr ""
+#, fuzzy
+msgid "With builtin Editor"
+msgstr "使用內建編輯器\n"
 
-msgid "With subshell support as default\n"
-msgstr ""
+#, fuzzy
+msgid "With optional subshell support"
+msgstr "不支援使用次殼層 (subshell)"
 
-msgid "With support for background operations\n"
+#, fuzzy
+msgid "With subshell support as default"
+msgstr "支援使用次殼層 (預設值)"
+
+#, fuzzy
+msgid "With support for background operations"
 msgstr "支援背景執行程序\n"
 
-msgid "With mouse support on xterm and Linux console\n"
+#, fuzzy
+msgid "With mouse support on xterm and Linux console"
 msgstr "在 xterm 與主控台支援滑鼠\n"
 
-msgid "With mouse support on xterm\n"
+#, fuzzy
+msgid "With mouse support on xterm"
 msgstr "在 xterm 支援滑鼠\n"
 
-msgid "With support for X11 events\n"
+#, fuzzy
+msgid "With support for X11 events"
+msgstr "支援背景執行程序\n"
+
+msgid "With internationalization support"
 msgstr ""
 
-msgid "With internationalization support\n"
-msgstr ""
-
-msgid "With multiple codepages support\n"
+#, fuzzy
+msgid "With multiple codepages support"
 msgstr "使用多頁碼支援\n"
 
 #, c-format
@@ -3659,10 +3712,26 @@ msgid "Built with GLib %d.%d.%d\n"
 msgstr ""
 
 #, c-format
-msgid "Virtual File Systems:"
+msgid "Built with S-Lang %s with terminfo database\n"
 msgstr ""
 
 #, c-format
+msgid "Built with ncurses %s\n"
+msgstr ""
+
+msgid "Built with ncurses (unknown version)"
+msgstr ""
+
+#, c-format
+msgid "Built with ncursesw %s\n"
+msgstr ""
+
+msgid "Built with ncursesw (unknown version)"
+msgstr ""
+
+msgid "Virtual File Systems:"
+msgstr ""
+
 msgid "Data types:"
 msgstr ""
 
@@ -4025,9 +4094,9 @@ msgstr ""
 msgid "sftp: No file handler data present for reading file"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgid "sftp: socket error: %s"
-msgstr "ftpfs: 造成中斷的錯誤: %s"
+msgstr ""
 
 #, c-format
 msgid "sftp: (Ctrl-G break) Listing... %s"
